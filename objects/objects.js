@@ -5,12 +5,14 @@
     Values are the actual value itself.
  */
 
-const superHero = {
+// Creating objects
+// Using Object Literal
+let superHero = {
     name: "Peter Parker", // Key: name, value: "Peter Parker"
     heroName: "Spider-Man" // Key: heroName, value: "Spider-Man"
 }
 
-console.log(superHero); // Output: { name: 'Peter Parker', heroName: 'Spider-Man' }
+console.log(superHero); // Output: { name: 'Peter Parker', heroName: 'Spider-Man'
 
 /*
     Accessing values using keys
