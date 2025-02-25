@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dummy Json</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @theme {
+        --color-clifford: #da373d;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .product-card {
+        @apply border border-gray-200 rounded-xl col-span-1 flex flex-col items-center;
+      }
+    </style>
+  </head>
+  <body class="p-4 max-w-[1200px] mx-auto">
+    <h1 class="font-bold text-3xl text-center">Products from Dummy JSON</h1>
+    <div
+      id="content"
+      class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5 w-full"
+    ></div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
