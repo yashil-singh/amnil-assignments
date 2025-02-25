@@ -10,8 +10,8 @@
 "Hello"; // Double Quotes
 `Hello`; // Backticks (Template Literals) - Can be used for inserting variables
 
-let name = "Kyrie Irving";
-console.log(`Hello, my name is ${name}.`);
+let player = "Kyrie Irving";
+console.log(`Hello, my name is ${player}.`);
 
 function log(content) {
   console.log(content);
@@ -20,35 +20,35 @@ function log(content) {
 // Accessing characters
 
 // Using index
-log(name[0]); // K
+log(player[0]); // K
 
 // charAt
-log(name.charAt(0)); // K
+log(player.charAt(0)); // K
 
 // String Methods
 
 // substring
-log(name.substring(0, 1)); // K
+log(player.substring(0, 1)); // K
 
 // concat - joins two or more stings
-log(name.concat(" ", "is my name", "."));
+log(player.concat(" ", "is my name", "."));
 
 // replace - replaces specified patterns
-log(name.replace("i", "a")); // Bobin
+log(player.replace("i", "a")); // Bobin
 
 // split - splits the string into array
-log(name.split()); // [ 'Kyrie Irving' ]
-log(name.split(" ")); // [ 'Kyrie', 'Irving' ]
+log(player.split()); // [ 'Kyrie Irving' ]
+log(player.split(" ")); // [ 'Kyrie', 'Irving' ]
 
-log(name.slice(0, 5)); // Kyrie
+log(player.slice(0, 5)); // Kyrie
 
-log(name.toUpperCase()); // KYRIE IRVING
-log(name.toLowerCase()); // kyrie irving
+log(player.toUpperCase()); // KYRIE IRVING
+log(player.toLowerCase()); // kyrie irving
 
-log(name.includes("Irving")); // true
-log(name.includes("Basketball")); // false
+log(player.includes("Irving")); // true
+log(player.includes("Basketball")); // false
 
-log(name.search("Irving")); // 1
+log(player.search("Irving")); // 1
 
 // for...in
 
