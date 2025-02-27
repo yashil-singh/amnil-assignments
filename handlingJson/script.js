@@ -1,28 +1,9 @@
 const BASE_URL = "https://dummyjson.com";
 
-document.addEventListener("DOMContentLoaded", () => {
-  const content = document.getElementById("content");
+const content = document.getElementById("content");
 
-  const getProducts = async () => {
-    content.innerHTML =
-      "<span class='text-lg font-semibold text-center col-span-3'>Loading products...</span>";
-
-    try {
-      const response = await fetch(`${BASE_URL}/products`);
-
-      const data = await response.json();
-
-      const products = data.products;
-
-      content.innerHTML = "";
-
-      products.forEach((product) => {
-        console.log("🚀 ~ script.js:20 ~ product:", product);
-
-        const productCard = document.createElement("div");
-        productCard.classList.add("product-card");
-
-        productCard.innerHTML += `
+const createProductCard = (product) => {
+  return `
           <img src="${product.thumbnail}" class="size-[300px] object-cover" />
           <div class="flex flex-col gap-2 p-4 border-t border-gray-200 w-full">
             <div>
@@ -50,13 +31,36 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
           </div>
         `;
+};
 
-        content.appendChild(productCard);
-      });
-    } catch (error) {
-      console.log("🚀 ~ index.js:5 ~ error:", error);
-    }
-  };
+const getProducts = async () => {
+  content.innerHTML =
+    "<span class='text-lg font-semibold text-center col-span-3'>Loading products...</span>";
 
-  getProducts();
-});
+  try {
+    const response = await fetch(`${BASE_URL}/products`);
+
+    const data = await response.json();
+
+    const products = data.products;
+
+    content.innerHTML = "";
+
+    products.forEach((product) => {
+      console.log("🚀 ~ script.js:20 ~ product:", product);
+
+      const productCard = document.createElement("div");
+      productCard.classList.add("product-card");
+
+      productCard.innerHTML += createProductCard(product);
+
+      content.appendChild(productCard);
+    });
+  } catch (error) {
+    content.innerHTML =
+      "<span class='text-lg font-semibold text-center col-span-3 text-red-500'>Error loading products</span>";
+    console.log("🚀 ~ index.js:5 ~ error:", error);
+  }
+};
+
+getProducts();
