@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="public/css/style.css" />
+  </head>
+  <body>
+    <main class="main-container">
+      <form class="card">
+        <section class="card-header">
+          <span style="display: flex; align-items: center; gap: 8px">
+            <h1 class="card-title">Currency Converter</h1>
+            <i data-lucide="hand-coins"></i>
+          </span>
+          <span class="card-description">
+            Easily convert currencies. Select your preferred currencies, enter
+            an amount, and get instant, accurate exchange rates.
+          </span>
+        </section>
+
+        <section class="card-content">
+          <div class="flex-container">
+            <!-- Amount -->
+            <div>
+              <label class="input-label">Amount</label>
+
+              <div class="input-country-code" id="amount-input-container">
+                <input placeholder="Amount" type="number" id="amount" />
+
+                <select id="country-from">
+                  <option>Select</option>
+                </select>
+              </div>
+            </div>
+
+            <button
+              style="background-color: transparent; align-self: flex-end"
+              type="button"
+              id="switch-button"
+            >
+              <i data-lucide="arrow-right-left"></i>
+            </button>
+
+            <!-- Converted Amount -->
+            <div>
+              <label class="input-label">Converted to</label>
+
+              <div class="input-country-code" id="convert-input-container">
+                <input type="number" id="converted-to" disabled />
+                <select id="country-to">
+                  <option>Select</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Range Selector -->
+          <div class="form-input-container">
+            <label class="input-label">Range</label>
+            <select class="input" id="range-selector">
+              <option>Today</option>
+              <option>Custom</option>
+            </select>
+          </div>
+
+          <!-- Custom date -->
+          <div
+            class="form-input-container"
+            style="display: none"
+            id="custom-date-container"
+          >
+            <label class="input-label">Date</label>
+            <input
+              placeholder="Date"
+              type="date"
+              class="input"
+              id="custom-date"
+            />
+          </div>
+
+          <!-- Exchange Rate -->
+          <div
+            class="form-input-container"
+            style="display: none"
+            id="exchange-rate-contianer"
+          >
+            <label class="input-label">Exchange Rate</label>
+            <span style="font-weight: 600" id="exchange-rate"
+              >£1.000 GBP = ₨176.3 NPR</span
+            >
+          </div>
+
+          <p id="error-message" class="error-message"></p>
+        </section>
+
+        <section class="card-footer">
+          <button class="btn-primary convert-button" id="convert-button">
+            Convert
+          </button>
+        </section>
+      </form>
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+    <script src="public/js/index.js" type="module" defer></script>
+  </body>
+</html>

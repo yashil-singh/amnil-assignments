@@ -1,0 +1,184 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+:root {
+  --color-primary: #41644a;
+  --color-primary-light: #517b5b;
+  --color-accent: #d5e9d8;
+  --color-text: #09090b;
+  --color-border: #e4e4e7;
+  --color-muted: #f4f4f5;
+  --color-muted-foreground: #71717a;
+
+  --font-heading: "DM Sans", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  color: var(--color-text);
+}
+
+body {
+  background-color: var(--color-accent);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+button {
+  padding: 0.75rem;
+  border: none;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+button:active {
+  transform: scale(99%);
+}
+
+button:disabled {
+  opacity: 50%;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-light);
+}
+
+.btn-ghost {
+  background-color: transparent;
+}
+
+.btn-ghost:hover {
+  background-color: var(--color-muted);
+}
+
+input,
+select {
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+.input,
+.select {
+  padding: 0.75rem;
+  border: 2px solid var(--color-border);
+  border-radius: 0.75rem;
+  font-family: var(--font-body) !important;
+}
+
+.input:focus,
+.input:focus-visible,
+.select:focus,
+.select:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.main-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  font-size: 14px;
+}
+
+.card {
+  max-width: 500px;
+  width: 100%;
+  border-radius: 1.75rem;
+  background-color: white;
+}
+
+.card-header {
+  padding: 2rem 2rem 0 2rem;
+}
+
+.card-title {
+  font-weight: 900;
+  font-size: 24px;
+}
+
+.card-description {
+  font-size: 14px;
+  color: var(--color-muted-foreground);
+}
+
+.card-content {
+  padding: 1rem 2rem 0 2rem;
+}
+
+.card-footer {
+  padding: 1rem 2rem 2rem 2rem;
+}
+
+.convert-button {
+  width: 100%;
+}
+
+.form-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.input-label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.flex-container {
+  display: flex;
+  width: 100%;
+  gap: 4px;
+}
+
+.input-country-code {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 2px solid var(--color-border);
+  border-radius: 0.75rem;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+.input-country-code input {
+  padding: 0.75rem;
+}
+
+.input-country-code input {
+  grid-column: span 2 / span 2;
+}
+
+.input-error {
+  box-shadow: 0 0 0 2px red !important;
+}
+
+@media (max-width: 768px) {
+  .range-container {
+    flex-direction: column;
+  }
+}
