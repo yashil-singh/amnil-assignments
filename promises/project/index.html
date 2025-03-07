@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Handling Promises</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style>
+      * {
+        font-family: "Funnel Sans", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="max-w-4xl w-full mx-auto space-y-4 pb-12">
+      <header class="w-full p-5 bg-cyan-700 text-white">
+        <h1 class="text-3xl font-black text-center">Handling Promises</h1>
+      </header>
+
+      <!-- promise.all() -->
+      <section class="space-y-4 px-4">
+        <h1 class="font-semibold text-xl">1. Promise.all()</h1>
+
+        <div>
+          <h2 class="text-lg font-medium">- Fetching post with author data.</h2>
+          <span class="text-gray-500">
+            As post data and user data are separate, both the post and author
+            data has to be fetched separately. The following post card uses data
+            from both API calls:
+          </span>
+
+          <!-- Promise All data Container -->
+          <div id="promise-all-data" class="mt-4">
+            <!-- Loader Container -->
+            <div
+              id="promise-all-loader"
+              class="hidden flex items-center justify-center p-4"
+            >
+              <i
+                data-lucide="loader-circle"
+                class="animate-spin duration-150 text-cyan-800"
+              ></i>
+            </div>
+
+            <!-- Error Message Container -->
+            <div
+              id="promise-all-error"
+              class="hidden text-red-500 font-medium text-center p-4"
+            ></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- promise.allSettled -->
+      <section class="space-y-4 px-4">
+        <h1 class="font-semibold text-xl">2. Promise.allSettled()</h1>
+
+        <div>
+          <h2 class="text-lg font-medium">- Fetching post with author data.</h2>
+          <span class="text-gray-500">
+            As post data and user data are separate, both the post and author
+            data has to be fetched separately. The following post card uses data
+            from both API calls but using allSettled:
+          </span>
+
+          <!-- Promise all settled data Container -->
+          <div id="promise-all-settled-data" class="mt-4">
+            <!-- Loader Container -->
+            <div
+              id="promise-all-settled-loader"
+              class="hidden flex items-center justify-center p-4"
+            >
+              <i
+                data-lucide="loader-circle"
+                class="animate-spin duration-150 text-cyan-800"
+              ></i>
+            </div>
+
+            <!-- Error Message Container -->
+            <div
+              id="promise-all-settled-error"
+              class="hidden text-red-500 font-medium text-center p-4"
+            ></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="space-y-4 px-4">
+        <h1 class="font-semibold text-xl">3. Promise.any()</h1>
+
+        <div>
+          <h2 class="text-lg font-medium">- Fetching 2 posts.</h2>
+          <span class="text-gray-500">
+            To simulate any condition, fetching two posts separately and showing
+            the post that is fetched first. The first promise that resolves is
+            returned. If all promises are rejected, it returns an error.
+          </span>
+
+          <!-- Promise all settled data Container -->
+          <div id="promise-any-data" class="mt-4">
+            <!-- Loader Container -->
+            <div
+              id="promise-any-loader"
+              class="hidden flex items-center justify-center p-4"
+            >
+              <i
+                data-lucide="loader-circle"
+                class="animate-spin duration-150 text-cyan-800"
+              ></i>
+            </div>
+
+            <!-- Error Message Container -->
+            <div
+              id="promise-any-error"
+              class="hidden text-red-500 font-medium text-center p-4"
+            ></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="space-y-4 px-4">
+        <h1 class="font-semibold text-xl">4. Promise.race()</h1>
+
+        <div>
+          <h2 class="text-lg font-medium">- Fetching 2 posts.</h2>
+          <span class="text-gray-500">
+            To simulate race condition, fetching two posts separately and
+            showing the post that is fetched first. Unlike any, race returns the
+            data no matter the result.
+          </span>
+
+          <!-- Promise all settled data Container -->
+          <div id="promise-race-data" class="mt-4">
+            <!-- Loader Container -->
+            <div
+              id="promise-race-loader"
+              class="hidden flex items-center justify-center p-4"
+            >
+              <i
+                data-lucide="loader-circle"
+                class="animate-spin duration-150 text-cyan-800"
+              ></i>
+            </div>
+
+            <!-- Error Message Container -->
+            <div
+              id="promise-race-error"
+              class="hidden text-red-500 font-medium text-center p-4"
+            ></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="./script.js"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
