@@ -30,32 +30,32 @@ A simple task management application built using **Vite**, **Vanilla JavaScript*
 
 ## 🚀 Getting Started
 
-1️⃣ Clone the Repository
+### 1️⃣ Clone the Repository
 
 ```sh
 git clone https://github.com/your-username/todo-app.git
 cd todo-app
 ```
 
-2️⃣ Install Dependencies
+### 2️⃣ Install Dependencies
 
 ```sh
 npm install
 ```
 
-3️⃣ Start the Development Server
+### 3️⃣ Start the Development Server
 
 ```sh
 npm run dev
 ```
 
-4️⃣ Start the JSON Server
+### 4️⃣ Start the JSON Server
 
 ```sh
 npm run server
 ```
 
-5️⃣ Open in Browser
+### 5️⃣ Open in Browser
 
 Visit: http://localhost:5173
 
