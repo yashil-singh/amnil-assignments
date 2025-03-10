@@ -1,61 +1,37 @@
 import { createTodoApi } from "@js/api/todos";
-import { toastError, toastSuccess } from "@js/toast";
-import { addTodoCategoryInput, addTodoTitleInput } from "@js/todo";
-import { closeModal } from "@js/todoModal";
-import { format } from "date-fns";
+import { toastError, toastSuccess } from "@js/ui/toast";
+import {
+  addTodoCategoryInput,
+  addTodoSubmitButton,
+  addTodoTitleInput,
+  createTodoElement,
+} from "@js/todos/todo";
+import { closeModal } from "@js/ui/modal";
 
-export const createTodoElement = (
-  id,
-  title,
-  category,
-  isCompleted,
-  createdAt,
-) => {
-  const formatedDate = format(
-    new Date(createdAt),
-    "iii, do MMM yyyy, h:mm aaa",
-  );
+const titleError = document.getElementById("title-error");
 
-  const div = document.createElement("div");
-  div.classList.add("todo-container", "active");
-  div.setAttribute("data-todo-id", id);
-
-  div.innerHTML = `
-    <div class="todo-details">
-      <!-- Checkbox -->
-  
-        <input
-          type="checkbox"
-          ${isCompleted && "checked"}
-          class="size-6 toggle-checkbox"
-          id="complete-toggle-button-${id}"
-          data-id="${id}"
-        />
-  
-  
-      <div class="flex flex-col">
-        <span data-id-title=${id} class="todo-title ${isCompleted && "done"}">${title}</span>
-        <span class="text-muted text-sm">
-          ${category && `${category} - `}${formatedDate}
-        </span>
-      </div>
-    </div>
-  
-    <div class="flex">
-      <!-- Open Delete Todo Modal Button -->
-      <button
-        class="btn btn-ghost-destructive delete-todo"
-        id="delete-todo-modal-open-button-${id}"
-        data-id="${id}"
-      >
-        <i data-lucide="trash-2" class="size-5"></i>
-      </button>
-    </div>`;
-
-  return div;
+// Reset the form
+export const resetAddTodoForm = () => {
+  addTodoSubmitButton.disabled = false;
+  addTodoSubmitButton.innerText = "Add";
+  titleError.innerText = "";
+  addTodoTitleInput.classList.remove("input-error");
 };
 
-const createTodo = async (title, category) => {
+export const createTodo = async () => {
+  const title = addTodoTitleInput.value;
+  const category = addTodoCategoryInput.value;
+
+  if (!title) {
+    addTodoTitleInput.focus();
+    addTodoTitleInput.classList.add("input-error");
+    titleError.innerText = "Title is required.";
+    return;
+  }
+
+  addTodoSubmitButton.disabled = true;
+  addTodoSubmitButton.innerText = "Adding...";
+
   const response = await createTodoApi(title, category);
 
   if (response.success) {
@@ -64,28 +40,14 @@ const createTodo = async (title, category) => {
     addTodoTitleInput.value = "";
     addTodoCategoryInput.value = "";
 
+    resetAddTodoForm();
     closeModal();
 
-    const {
-      id,
-      title: taskTitle,
-      category: taskCategory,
-      isCompleted,
-      createdAt,
-    } = response.data;
-
-    const todo = createTodoElement(
-      id,
-      taskTitle,
-      taskCategory,
-      isCompleted,
-      createdAt,
-    );
+    const todo = createTodoElement(response.data);
 
     return todo;
   } else {
     toastError(response.message);
+    return null;
   }
 };
-
-export default createTodo;

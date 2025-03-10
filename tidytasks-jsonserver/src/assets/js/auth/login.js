@@ -1,5 +1,5 @@
 import { login } from "@js/api/users";
-import { toastError, toastSuccess } from "@js/toast";
+import { toastError, toastSuccess } from "@js/ui/toast";
 
 const username = document.getElementById("username");
 const password = document.getElementById("password");

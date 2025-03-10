@@ -1,4 +1,4 @@
-import { toastSuccess } from "@js/toast";
+import { toastSuccess } from "@js/ui/toast";
 
 const logout = () => {
   localStorage.removeItem("token");

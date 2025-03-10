@@ -26,6 +26,7 @@
                 placeholder="Enter title"
                 id="add-title"
               />
+              <p class="input-error-message" id="title-error"></p>
             </div>
             <div class="input-container">
               <label class="input-label" for="category">Category</label>
@@ -47,14 +48,25 @@
           </button>
           <h1 class="font-semibold">Edit To Do</h1>
 
-          <form class="mt-4 space-y-2">
+          <form class="mt-4 space-y-2" id="edit-todo-form">
             <div class="input-container">
               <label class="input-label" for="title">Title</label>
-              <input name="title" type="text" placeholder="Enter title" />
+              <input
+                name="title"
+                type="text"
+                placeholder="Enter title"
+                id="edit-title"
+              />
+              <p class="input-error-message" id="edit-title-error"></p>
             </div>
             <div class="input-container">
               <label class="input-label" for="category">Category</label>
-              <input name="category" type="text" placeholder="Enter category" />
+              <input
+                name="category"
+                type="text"
+                placeholder="Enter category"
+                id="edit-category"
+              />
             </div>
             <button class="btn modal-button" id="edit-submit-button">
               Edit
@@ -163,8 +175,9 @@
       </section>
 
       <script type="module" src="./main.js"></script>
-      <script src="assets/js/profileDropdown.js"></script>
       <script type="module" src="assets/js/auth/logout.js"></script>
+      <script src="assets/js/ui/profileDropdown.js"></script>
+
       <script src="https://unpkg.com/lucide@latest"></script>
       <script>
         lucide.createIcons();

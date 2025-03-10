@@ -11,6 +11,7 @@ export const toastSuccess = (message) => {
     style: {
       background: "transparent",
       color: "black",
+      boxShadow: "none",
     },
   }).showToast();
 };
@@ -25,6 +26,7 @@ export const toastError = (message) => {
     style: {
       background: "transparent",
       color: "red",
+      boxShadow: "none",
     },
   }).showToast();
 };

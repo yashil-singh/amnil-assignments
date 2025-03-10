@@ -11,9 +11,9 @@ export const removeClassName = (element, ...classname) => {
 
 export const createToken = async (payload) => {
   return await new SignJWT(payload)
-    .setProtectedHeader({ alg: "HS256" }) // Algorithm: HMAC SHA-256
+    .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("2h") // Token expires in 2 hours
+    .setExpirationTime("2h")
     .sign(secretKey);
 };
 

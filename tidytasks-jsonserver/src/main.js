@@ -1,66 +1,92 @@
-import { toggleTodoCompleteApi } from "@js/api/todos";
 import { verifyToken } from "@js/api/users";
 import { loadUserData } from "@js/auth/getUserData";
 import {
-  addTodoCategoryInput,
   addTodoForm,
-  addTodoSubmitButton,
-  addTodoTitleInput,
+  createTodoElement,
   deleteTodoSubmitButton,
+  editTodoForm,
   selectedTodo,
-  setSeletedTodo,
   todosContainer,
-} from "@js/todo";
-import { deleteTodoModal, openModal } from "@js/todoModal";
-import createTodo from "@js/todos/createTodo";
+} from "@js/todos/todo";
 import deleteTodo from "@js/todos/deleteTodo";
-import loadIndexTodos from "@js/todos/loadIndexTodos";
+import { fetchTodos } from "@js/todos/fetchTodos";
+import { toastError } from "@js/ui/toast";
+import { editTodo } from "@js/todos/editTodo";
+import { createTodo } from "@js/todos/createTodo";
 
+// Checking for token in localstorage
 const token = localStorage.getItem("token");
 
 if (!token) window.location.href = "/login";
 
+// Verifying token
 const validToken = await verifyToken(token);
 
 if (!validToken) {
   window.location.href = "/login";
 } else {
   if (!validToken.success) {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    window.location.href = "/login";
+    toastError("You have been logged out.");
+
+    setTimeout(() => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "/login";
+    }, 1000);
   } else {
+    // Setting user data in local storage
     localStorage.setItem("user", JSON.stringify(validToken.data));
   }
 }
 
+const loadTodos = async () => {
+  todosContainer.innerText = "Loading todos...";
+  const todos = await fetchTodos();
+
+  todosContainer.innerText = "";
+  todos.forEach((todo) => {
+    const todoElement = createTodoElement(todo);
+
+    todosContainer.appendChild(todoElement);
+  });
+
+  if (todos.length < 1) todosContainer.innerText = "No todos added yet.";
+
+  lucide.createIcons();
+};
+
 // Loading user data;
 loadUserData();
 
-// Loading tasks in index page
-loadIndexTodos();
+// Loading todos
+loadTodos();
 
 // Creating todo
 addTodoForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  addTodoSubmitButton.disabled = true;
-  addTodoSubmitButton.innerText = "Adding...";
+  const newTodoElement = await createTodo();
 
-  const title = addTodoTitleInput.value;
-  const category = addTodoCategoryInput.value;
-
-  const newTodoElement = await createTodo(title, category);
-
-  if (todosContainer.innerText === "No tasks added yet.") {
+  console.log(
+    "🚀 ~ main.js:71 ~ todosContainer.innerText:",
+    todosContainer.innerText,
+  );
+  if (todosContainer.innerText === "No todos added yet.") {
     todosContainer.innerText = "";
   }
 
-  todosContainer.appendChild(newTodoElement);
-  lucide.createIcons();
+  if (!newTodoElement) return;
 
-  addTodoSubmitButton.disabled = false;
-  addTodoSubmitButton.innerText = "Add";
+  todosContainer.prepend(newTodoElement);
+  lucide.createIcons();
+});
+
+// Editing todo
+editTodoForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const id = selectedTodo.todoId;
+
+  await editTodo(id);
 });
 
 // Deleting todo
@@ -70,23 +96,6 @@ deleteTodoSubmitButton.addEventListener("click", async () => {
   await deleteTodo(id);
 
   if (todosContainer.innerHTML === "") {
-    todosContainer.innerText = "No tasks added yet.";
-  }
-});
-// Adding event listeners to action buttons
-todosContainer.addEventListener("click", async (e) => {
-  const deleteButton = e.target.closest(".delete-todo");
-  if (deleteButton) {
-    setSeletedTodo(deleteButton);
-    openModal(deleteTodoModal);
-  } else if (e.target.classList.contains("toggle-checkbox")) {
-    const id = e.target.getAttribute("data-id");
-
-    const response = await toggleTodoCompleteApi(id);
-
-    if (response.success) {
-      const title = document.querySelector(`[data-id-title='${id}']`);
-      title.classList.toggle("done");
-    }
+    todosContainer.innerText = "No todos added yet.";
   }
 });

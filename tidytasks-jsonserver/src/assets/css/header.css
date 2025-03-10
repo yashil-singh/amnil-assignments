@@ -15,7 +15,7 @@
 }
 
 .avatar {
-  @apply size-10;
+  @apply size-10 rounded-full;
 }
 
 .profile-dropdown-container {

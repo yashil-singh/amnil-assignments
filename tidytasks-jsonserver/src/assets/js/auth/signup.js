@@ -1,5 +1,5 @@
 import { signup } from "@js/api/users";
-import { toastError, toastSuccess } from "@js/toast";
+import { toastError, toastSuccess } from "@js/ui/toast";
 
 const fullName = document.getElementById("fullName");
 const username = document.getElementById("username");

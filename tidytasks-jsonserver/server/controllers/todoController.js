@@ -54,13 +54,13 @@ export const getTodosByUserId = async (id) => {
       (todo) => todo.userId.toString() === id.toString(),
     );
 
-    return response(true, "", filtered);
+    return response(true, "", filtered.reverse());
   } catch (error) {
     return response(false, error.message);
   }
 };
 
-export const updateTodo = async (id, title, category) => {
+export const updateTodo = async (id, title, category, userId) => {
   try {
     if (!id) throw new Error("Todo ID is required.");
     if (!title || title.trim().length < 1)
@@ -69,10 +69,14 @@ export const updateTodo = async (id, title, category) => {
     const todoResponse = await fetch(`${BASE_URL}/todos/${id}`);
     if (!todoResponse.ok) throw new Error("Todo not found.");
 
+    const currentTodo = await todoResponse.json();
+    console.log("🚀 ~ todoController.js:73 ~ currentTodo:", currentTodo);
+
+    if (currentTodo.userId !== userId) throw new Error("Todo can't be edited.");
+
     const updatedTodo = {
       title,
       category: category ?? null,
-      updatedAt: new Date(),
     };
 
     const updateResponse = await fetch(`${BASE_URL}/todos/${id}`, {
@@ -85,7 +89,7 @@ export const updateTodo = async (id, title, category) => {
 
     if (!updateResponse.ok) throw new Error("Failed to update todo.");
 
-    return response(true, "Todo updated.", { id, ...updatedTodo });
+    return response(true, "Todo updated.", updatedTodo);
   } catch (error) {
     return response(false, error.message);
   }

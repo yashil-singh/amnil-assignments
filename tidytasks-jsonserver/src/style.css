@@ -74,4 +74,12 @@
   .toast-error {
     @apply border-destructive bg-destructive-light! text-destructive;
   }
+
+  .input-error {
+    @apply ring-destructive ring-2;
+  }
+
+  .input-error-message {
+    @apply text-destructive ring-destructive text-sm;
+  }
 }

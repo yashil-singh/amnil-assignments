@@ -1,13 +1,13 @@
 import { deleteTodoApi } from "@js/api/todos";
-import { removeTask } from "./loadIndexTodos";
-import { toastSuccess } from "@js/toast";
-import { closeModal, deleteTodoModal } from "@js/todoModal";
+import { toastSuccess } from "@js/ui/toast";
+import { closeModal } from "@js/ui/modal";
+import { deleteTodoModal, removeTodoElement } from "./todo";
 
 const deleteTodo = async (id) => {
   const response = await deleteTodoApi(id);
 
   if (response.success) {
-    removeTask(id);
+    removeTodoElement(id);
     toastSuccess(response.message);
   }
 

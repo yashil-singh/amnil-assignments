@@ -1,4 +1,21 @@
 {
-  "users": [],
-  "todos": []
+  "users": [
+    {
+      "id": "1",
+      "name": "Yashil Singh",
+      "username": "yaashil.s",
+      "password": "$2b$10$Afq3pArXusg1tKuVAudFL.zMCh3TtVWaZpI2Dp1guu1m1wxwHKJJS",
+      "createdAt": "2025-03-10T09:12:10.775Z"
+    }
+  ],
+  "todos": [
+    {
+      "id": "1",
+      "title": "Complete Categories Section",
+      "category": "Coding",
+      "createdAt": "2025-03-10T17:36:49.247Z",
+      "userId": "1",
+      "isCompleted": false
+    }
+  ]
 }
