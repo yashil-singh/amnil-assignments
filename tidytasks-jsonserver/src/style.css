@@ -80,6 +80,6 @@
   }
 
   .input-error-message {
-    @apply text-destructive ring-destructive text-sm;
+    @apply text-destructive ring-destructive mt-1 text-sm;
   }
 }

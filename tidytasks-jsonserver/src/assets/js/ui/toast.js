@@ -5,7 +5,7 @@ export const toastSuccess = (message) => {
   Toastify({
     text: message,
     duration: 3000,
-    gravity: "bottom", // `top` or `bottom`
+    gravity: "top",
     position: "right",
     className: "toast-success",
     style: {
@@ -20,7 +20,7 @@ export const toastError = (message) => {
   Toastify({
     text: message,
     duration: 3000,
-    gravity: "bottom", // `top` or `bottom`
+    gravity: "top",
     position: "right",
     className: "toast-error",
     style: {
