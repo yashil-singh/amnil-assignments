@@ -49,51 +49,7 @@ export const setSeletedTodo = (button) => {
   selectedTodo = { todoId, todoTitle, todoCategory };
 };
 
-// Creating todo
-addTodoForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  addTodoSubmitButton.disabled = true;
-  addTodoSubmitButton.innerText = "Adding...";
-
-  const title = addTodoTitleInput.value;
-  const category = addTodoCategoryInput.value;
-
-  const newTodoElement = await createTodo(title, category);
-
-  todosContainer.appendChild(newTodoElement);
-  lucide.createIcons();
-
-  addTodoSubmitButton.disabled = false;
-  addTodoSubmitButton.innerText = "Add";
-});
-
-// Deleting todo
-deleteTodoSubmitButton.addEventListener("click", async () => {
-  const id = selectedTodo.todoId;
-
-  await deleteTodo(id);
-});
-
 export const todosContainer = document.getElementById("tasks-container");
-
-// Adding event listeners to action buttons
-todosContainer.addEventListener("click", async (e) => {
-  const deleteButton = e.target.closest(".delete-todo");
-  if (deleteButton) {
-    setSeletedTodo(deleteButton);
-    openModal(deleteTodoModal);
-  } else if (e.target.classList.contains("toggle-checkbox")) {
-    const id = e.target.getAttribute("data-id");
-
-    const response = await toggleTodoCompleteApi(id);
-
-    if (response.success) {
-      const title = document.querySelector(`[data-id-title='${id}']`);
-      title.classList.toggle("done");
-    }
-  }
-});
 
 // Avoid closing modal when clicking on the overlay content
 addTodoModal?.addEventListener("click", (e) => {
