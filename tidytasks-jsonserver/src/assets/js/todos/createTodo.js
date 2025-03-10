@@ -34,6 +34,9 @@ export const createTodo = async () => {
 
   const response = await createTodoApi(title, category);
 
+  addTodoSubmitButton.disabled = false;
+  addTodoSubmitButton.innerText = "Add";
+
   if (response.success) {
     toastSuccess(response.message);
 

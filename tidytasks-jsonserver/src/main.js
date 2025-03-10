@@ -67,10 +67,6 @@ addTodoForm.addEventListener("submit", async (e) => {
 
   const newTodoElement = await createTodo();
 
-  console.log(
-    "🚀 ~ main.js:71 ~ todosContainer.innerText:",
-    todosContainer.innerText,
-  );
   if (todosContainer.innerText === "No todos added yet.") {
     todosContainer.innerText = "";
   }
