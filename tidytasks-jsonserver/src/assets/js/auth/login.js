@@ -33,5 +33,5 @@ submitButton.addEventListener("click", async (e) => {
   }
 
   submitButton.disabled = false;
-  submitButton.innerText = "Sign up";
+  submitButton.innerText = "Login";
 });
