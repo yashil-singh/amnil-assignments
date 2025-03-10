@@ -32,7 +32,10 @@ submitButton.addEventListener("click", async (e) => {
 
   if (!password.value) {
     password.classList.add("input-error");
-    password.focus();
+
+    if (username.value) {
+      password.focus();
+    }
 
     passwordError.innerText = "Password is required.";
   }
