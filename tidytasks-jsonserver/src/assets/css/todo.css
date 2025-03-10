@@ -1,0 +1,43 @@
+.category-header {
+  @apply border-border flex items-center justify-between border-b py-2 max-md:px-2;
+}
+
+.category-title {
+  @apply text-lg font-semibold;
+}
+
+.todo-container {
+  @apply border-border flex max-h-0 flex-row justify-between overflow-hidden opacity-0 duration-300;
+}
+
+.todo-container.active {
+  @apply max-h-full border-b py-4 opacity-100 max-md:px-2;
+}
+
+.todo-container.closing {
+  @apply max-h-0 opacity-0;
+}
+
+.todo-details {
+  @apply flex items-start gap-4;
+}
+
+.todo-title.done {
+  @apply text-muted line-through;
+}
+
+.add-todo {
+  @apply py-4 max-md:px-2;
+}
+
+.chevron-rotated {
+  @apply rotate-180;
+}
+
+.chevron-rotating {
+  @apply animate-rotate;
+}
+
+.chevron-rotate-back {
+  @apply animate-re-rotate rotate-0;
+}

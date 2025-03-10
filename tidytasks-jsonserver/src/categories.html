@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Categories | TidyTaks</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="overlay">
+      <!-- Edit Todo Modal -->
+      <div id="edit-todo-modal" class="card relative hidden w-full max-w-sm">
+        <button class="btn btn-icon absolute top-2 right-2" data-close-modal>
+          <i data-lucide="x" class="size-4"></i>
+        </button>
+        <h1 class="font-semibold">Edit To Do</h1>
+
+        <form class="mt-4 space-y-2">
+          <div class="input-container">
+            <label class="input-label" for="title">Title</label>
+            <input name="title" type="text" placeholder="Enter title" />
+          </div>
+          <div class="input-container">
+            <label class="input-label" for="category">Category</label>
+            <input name="category" type="text" placeholder="Enter category" />
+          </div>
+          <button class="btn modal-button" id="add-todo-modal-submit-button">
+            Edit
+          </button>
+        </form>
+      </div>
+
+      <!-- Delete Todo Modal -->
+      <div id="delete-todo-modal" class="card relative hidden w-full max-w-sm">
+        <h1 class="font-semibold">Are you sure you want to continue?</h1>
+
+        <p class="text-muted text-sm">
+          This will permanently delete this todo.
+        </p>
+
+        <div class="mt-4 flex justify-end gap-2">
+          <button class="btn btn-ghost" data-close-modal>Cancel</button>
+
+          <button class="btn btn-destructive" id="add-todo-modal-submit-button">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <header class="header">
+      <div class="fluid-container header-container">
+        <a href="/">
+          <h1 class="text-2xl font-black">TidyTasks</h1>
+        </a>
+
+        <span class="profile-dropdown-btn-container">
+          <button class="profile-dropdown-btn" id="profile-dropdown-btn">
+            <span id="current-user-avatar-container"> </span>
+          </button>
+
+          <div class="profile-dropdown-container">
+            <div class="profile-dropdown-header">
+              <span id="current-user-avatar-container"> </span>
+              <div class="user-container">
+                <span class="username" id="current-user-username"></span>
+                <span class="join-date">Joined 7th March 2025</span>
+              </div>
+            </div>
+
+            <div class="profile-dropdown-item">
+              <a
+                href="categories"
+                class="btn btn-ghost profile-dropdown-item-btn"
+              >
+                <i data-lucide="shapes" class="icon"></i>
+                Categories
+              </a>
+            </div>
+
+            <div class="profile-dropdown-item">
+              <button
+                class="btn btn-ghost-destructive profile-dropdown-item-btn"
+                id="logout-button"
+              >
+                <i data-lucide="log-out" class="icon"></i>
+                <p>Logout</p>
+              </button>
+            </div>
+          </div>
+        </span>
+      </div>
+    </header>
+
+    <section class="fluid-container py-8">
+      <div>
+        <h1 class="text-lg font-medium max-md:pl-2">Todos By Category</h1>
+
+        <div class="category-header">
+          <div class="flex items-center gap-1">
+            <button
+              class="btn btn-icon"
+              id="category-toggle-button"
+              data-category-id="1"
+            >
+              <i data-lucide="chevron-up"></i>
+            </button>
+            <h1 class="category-title">Category</h1>
+          </div>
+        </div>
+
+        <div class="todo-container active" id="category-1">
+          <div class="todo-details">
+            <div class="relative flex">
+              <input
+                type="checkbox"
+                class="peer checked:bg-primary checked:border-primary size-7 cursor-pointer appearance-none rounded-lg transition-all"
+              />
+              <span
+                class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform text-white opacity-0 peer-checked:opacity-100"
+              >
+                <i data-lucide="check" class="h-4"></i>
+              </span>
+            </div>
+
+            <div class="flex flex-col">
+              <span class="todo-title">Title</span>
+              <span class="text-muted text-sm">added 15m ago</span>
+            </div>
+          </div>
+
+          <div class="flex">
+            <!-- Open Edit Todo Modal Button -->
+            <button
+              class="btn btn-ghost"
+              id="edit-todo-modal-open-button"
+              data-id="1"
+              data-title="Take out the trash"
+              data-category="Chores"
+            >
+              <i data-lucide="pen" class="size-5"></i>
+            </button>
+
+            <!-- Open Delete Todo Modal Button -->
+            <button
+              class="btn btn-ghost-destructive"
+              id="delete-todo-modal-open-button"
+              data-id="1"
+            >
+              <i data-lucide="trash-2" class="size-5"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script type="module" src="./main.js"></script>
+    <script src="assets/js/profileDropdown.js"></script>
+    <script type="module" src="assets/js/auth/logout.js"></script>
+    <script type="module" src="assets/js/todo.js"></script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

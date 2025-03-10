@@ -1,0 +1,16 @@
+import { toastSuccess } from "@js/toast";
+
+const logout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+
+  toastSuccess("Logged out.");
+
+  setTimeout(() => {
+    window.location.href = "/";
+  }, 1000);
+};
+
+document.querySelectorAll("#logout-button").forEach((button) => {
+  button.addEventListener("click", () => logout());
+});
