@@ -1,6 +1,7 @@
 import { toggleTodoCompleteApi } from "@js/api/todos";
 import { openModal } from "../ui/modal";
 import { format } from "date-fns";
+import { toastError } from "@js/ui/toast";
 
 // Add todo form related elements
 export const addTodoForm = document.getElementById("add-todo-form"); // add form
@@ -82,7 +83,7 @@ export const createTodoElement = (todo) => {
         type="checkbox"
         ${isCompleted && "checked"}
         class="size-6 toggle-checkbox"
-        id="todo-${id}-toggle"
+        data-id="${id}"
       />
       <div class="flex flex-col">
         <span data-id-title=${id} class="todo-title ${isCompleted && "done"}" id="todo-${id}-title">${title}</span>
@@ -155,8 +156,10 @@ todosContainer.addEventListener("click", async (e) => {
     const response = await toggleTodoCompleteApi(id);
 
     if (response.success) {
-      const title = document.querySelector(`[data-id-title='${id}']`);
+      const title = document.getElementById(`todo-${id}-title`);
       title.classList.toggle("done");
+    } else {
+      toastError(response.message);
     }
   }
 });
