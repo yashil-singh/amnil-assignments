@@ -35,7 +35,6 @@ export const createTodo = async () => {
     addTodoTitleInput.value = "";
     addTodoCategoryInput.value = "";
 
-    resetAddTodoForm();
     closeModal();
 
     const todo = createTodoElement(response.data);

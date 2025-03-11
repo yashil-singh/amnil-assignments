@@ -81,6 +81,14 @@ export const getTodosByUserIdAndCategory = async (id) => {
 };
 
 export const updateTodo = async (id, title, category, userId) => {
+  console.log(
+    "🚀 ~ todoController.js:84 ~ id, title, category, userId:",
+    id,
+    title,
+    category,
+    userId,
+  );
+
   try {
     if (!id) throw new Error("Todo ID is required.");
     if (!title || title.trim().length < 1)
@@ -90,9 +98,10 @@ export const updateTodo = async (id, title, category, userId) => {
     if (!todoResponse.ok) throw new Error("Todo not found.");
 
     const currentTodo = await todoResponse.json();
-    console.log("🚀 ~ todoController.js:73 ~ currentTodo:", currentTodo);
+    console.log("🚀 ~ todoController.js:95 ~ currentTodo:", currentTodo);
 
-    if (currentTodo.userId !== userId) throw new Error("Todo can't be edited.");
+    if (currentTodo.userId.toString() !== userId.toString())
+      throw new Error("Todo can't be edited.");
 
     const updatedTodo = {
       title,

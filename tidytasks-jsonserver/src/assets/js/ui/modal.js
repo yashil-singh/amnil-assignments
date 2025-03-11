@@ -13,6 +13,8 @@ export const openModal = (modal) => {
   addClassName(overlay, "active");
   overlay.append(modal);
   removeClassName(modal, "hidden");
+
+  document.body.style.overflow = "hidden";
 };
 
 // Function to close modal
@@ -34,6 +36,8 @@ export const closeModal = () => {
   // reset all error messages
   const errors = document.querySelectorAll(".input-error-message");
   errors.forEach((error) => (error.innerText = ""));
+
+  document.body.style.overflow = "auto";
 };
 
 // Event listener to close the modal when 'esc' key is pressed

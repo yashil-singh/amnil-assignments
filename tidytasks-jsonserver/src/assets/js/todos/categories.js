@@ -14,6 +14,7 @@ import {
   createTodoElement,
   deleteTodoModal,
   deleteTodoSubmitButton,
+  editTodoCategoryInput,
   editTodoForm,
   editTodoModal,
   editTodoSubmitButton,
@@ -42,27 +43,87 @@ const setSeletedTodo = (button) => {
 
 // Adding event listeners to action buttons
 categoryContainer?.addEventListener("click", async (e) => {
-  const toggleButton = e.target.closest("#category-toggle-button");
+  const deleteButton = e.target.closest(".delete-todo");
+  const editButton = e.target.closest(".edit-todo");
 
-  if (toggleButton) {
-    const id = toggleButton.getAttribute("data-category-id");
-    toggleCategoryExpand(id);
+  if (deleteButton) {
+    setSeletedTodo(deleteButton);
+    openModal(deleteTodoModal);
+  } else if (editButton) {
+    setSeletedTodo(editButton);
 
-    if (toggleButton.classList.contains("chevron-rotated")) {
-      toggleButton.classList.toggle("chevron-rotate-back");
+    editTodoTitleInput.value = selectedTodo.todoTitle;
+    editTodoCategoryInput.value = selectedTodo.todoCategory;
 
-      setTimeout(() => {
-        toggleButton.classList.toggle("chevron-rotate-back");
-        toggleButton.classList.toggle("chevron-rotated");
-      }, 300);
+    openModal(editTodoModal);
+  } else if (e.target.classList.contains("toggle-checkbox")) {
+    const id = e.target.getAttribute("data-id");
+
+    const response = await toggleTodoCompleteApi(id);
+
+    if (response.success) {
+      const title = document.getElementById(`todo-${id}-title`);
+      title.classList.toggle("done");
     } else {
-      toggleButton.classList.toggle("chevron-rotating");
-
-      setTimeout(() => {
-        toggleButton.classList.toggle("chevron-rotating");
-        toggleButton.classList.toggle("chevron-rotated");
-      }, 300);
+      toastError(response.message);
     }
+  }
+});
+
+// Reset the todo form
+export const resetAddTodoForm = () => {
+  addTodoSubmitButton.disabled = false;
+  addTodoSubmitButton.innerText = "Add";
+  titleError.innerText = "";
+  addTodoTitleInput.classList.remove("input-error");
+};
+
+// Reset the edit todo form
+export const resetEditTodoForm = () => {
+  editTodoSubmitButton.disabled = false;
+  editTodoSubmitButton.innerText = "Edit";
+  titleError.innerText = "";
+  editTodoTitleInput.classList.remove("input-error");
+};
+
+// Creating todo
+addTodoForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const newTodoElement = await createTodo();
+
+  if (!newTodoElement) return;
+
+  resetAddTodoForm();
+
+  if (todosContainer.innerText === "No todos added yet.") {
+    todosContainer.innerText = "";
+  }
+  todosContainer.prepend(newTodoElement);
+  lucide.createIcons();
+
+  addTodoTitleInput.value = "";
+  addTodoCategoryInput.value = "";
+});
+
+// Editing todo
+editTodoForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const id = selectedTodo.todoId;
+
+  const isEdited = await editTodo(id);
+
+  if (isEdited) resetEditTodoForm();
+});
+
+// Deleting todo
+deleteTodoSubmitButton.addEventListener("click", async () => {
+  const id = selectedTodo.todoId;
+
+  await deleteTodo(id);
+
+  if (todosContainer.innerHTML === "") {
+    todosContainer.innerText = "No todos added yet.";
   }
 });
 
@@ -109,5 +170,3 @@ export const loadCategories = async () => {
 
   lucide.createIcons();
 };
-
-console.log(import.meta.url);

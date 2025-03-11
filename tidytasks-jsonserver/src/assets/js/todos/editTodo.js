@@ -43,8 +43,9 @@ export const editTodo = async (id) => {
     editTodoTitleInput.value = "";
     editTodoCategoryInput.value = "";
 
-    resetEditTodoForm();
     closeModal();
+
+    return true;
   } else {
     toastError(response.message);
     return null;

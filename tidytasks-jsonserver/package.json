@@ -4,12 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "server": "npx json-server ./server/db.json",
     "build": "vite build",
     "preview": "vite preview",
-    "server": "npx json-server ./server/db.json"
+    "dev": "concurrently \"vite\" \"npx json-server ./server/db.json\"",
+    "start": "vite build && concurrently \"vite preview\" \"npx json-server ./server/db.json\""
   },
   "devDependencies": {
+    "concurrently": "^9.1.2",
     "glob": "^11.0.1",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",

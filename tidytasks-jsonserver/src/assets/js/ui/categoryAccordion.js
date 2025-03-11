@@ -4,10 +4,6 @@ export const toggleCategoryExpand = (id) => {
   const categoryContainer = document.querySelector(
     `[data-category-container-id="${id}"]`,
   );
-  console.log(
-    "🚀 ~ categoryAccordion.js:5 ~ categoryContainer:",
-    categoryContainer,
-  );
 
   if (!categoryContainer) return;
 

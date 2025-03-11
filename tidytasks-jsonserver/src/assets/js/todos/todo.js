@@ -14,6 +14,7 @@ import {
   createTodoElement,
   deleteTodoModal,
   deleteTodoSubmitButton,
+  editTodoCategoryInput,
   editTodoForm,
   editTodoModal,
   editTodoSubmitButton,
@@ -94,6 +95,8 @@ addTodoForm.addEventListener("submit", async (e) => {
 
   if (!newTodoElement) return;
 
+  resetAddTodoForm();
+
   if (todosContainer.innerText === "No todos added yet.") {
     todosContainer.innerText = "";
   }
@@ -107,9 +110,13 @@ addTodoForm.addEventListener("submit", async (e) => {
 // Editing todo
 editTodoForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const id = selectedTodo.todoId;
+  const id = selectedTodo?.todoId;
 
-  await editTodo(id);
+  if (!id) return;
+
+  const isEdited = await editTodo(id);
+
+  if (isEdited) resetEditTodoForm();
 });
 
 // Deleting todo
@@ -138,5 +145,3 @@ export const loadTodos = async () => {
 
   lucide.createIcons();
 };
-
-console.log(import.meta.url);
