@@ -22,6 +22,11 @@ import {
   titleError,
   todosContainer,
 } from "./todoElements";
+import { getTodosByUserIdAndCategory } from "@controllers/todoController";
+import { currentUser } from "@js/auth/getUserData";
+import { toggleCategoryExpand } from "@js/ui/categoryAccordion";
+
+const categoryContainer = document.getElementById("categories-container");
 
 // Currently selected todo
 let selectedTodo = null;
@@ -36,36 +41,73 @@ const setSeletedTodo = (button) => {
 };
 
 // Adding event listeners to action buttons
-todosContainer?.addEventListener("click", async (e) => {
-  const deleteButton = e.target.closest(".delete-todo");
-  const editButton = e.target.closest(".edit-todo");
+categoryContainer?.addEventListener("click", async (e) => {
+  const toggleButton = e.target.closest("#category-toggle-button");
 
-  if (deleteButton) {
-    setSeletedTodo(deleteButton);
-    openModal(deleteTodoModal);
-  } else if (editButton) {
-    setSeletedTodo(editButton);
+  if (toggleButton) {
+    const id = toggleButton.getAttribute("data-category-id");
+    toggleCategoryExpand(id);
 
-    editTodoTitleInput.value = selectedTodo.todoTitle;
-    editTodoCategoryInput.value = selectedTodo.todoCategory;
+    if (toggleButton.classList.contains("chevron-rotated")) {
+      toggleButton.classList.toggle("chevron-rotate-back");
 
-    openModal(editTodoModal);
-  } else if (e.target.classList.contains("toggle-checkbox")) {
-    const id = e.target.getAttribute("data-id");
-
-    const response = await toggleTodoCompleteApi(id);
-
-    if (response.success) {
-      const title = document.getElementById(`todo-${id}-title`);
-      title.classList.toggle("done");
+      setTimeout(() => {
+        toggleButton.classList.toggle("chevron-rotate-back");
+        toggleButton.classList.toggle("chevron-rotated");
+      }, 300);
     } else {
-      toastError(response.message);
+      toggleButton.classList.toggle("chevron-rotating");
+
+      setTimeout(() => {
+        toggleButton.classList.toggle("chevron-rotating");
+        toggleButton.classList.toggle("chevron-rotated");
+      }, 300);
     }
   }
 });
 
-export const loadCategories = () => {
-  console.log("Loaded Categories");
+export const loadCategories = async () => {
+  const response = await getTodosByUserIdAndCategory(currentUser.id);
+
+  if (response.success) {
+    const todos = response.data;
+
+    for (let category in todos) {
+      const group = todos[category];
+
+      const div = document.createElement("div");
+      div.dataset.categoryContainerId = category;
+      div.classList.add("category-container", "active");
+
+      const categoryHeader = document.createElement("div");
+      categoryHeader.classList.add("category-header");
+      categoryHeader.innerHTML = `
+          <div class="flex items-center gap-1">
+            <button
+              class="btn btn-icon"
+              id="category-toggle-button"
+              data-category-id="${category}"
+            >
+              <i data-lucide="chevron-up"></i>
+            </button>
+            <h1 class="category-title">${category}</h1>
+          </div>
+      `;
+
+      categoryContainer.appendChild(categoryHeader);
+
+      group.forEach((groupItem) => {
+        const todo = createTodoElement(groupItem);
+
+        div.appendChild(todo);
+      });
+
+      categoryContainer.appendChild(div);
+      categoryContainer.appendChild(document.createElement("br"));
+    }
+  }
+
+  lucide.createIcons();
 };
 
 console.log(import.meta.url);

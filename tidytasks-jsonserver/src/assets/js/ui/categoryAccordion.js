@@ -1,7 +1,13 @@
 import { addClassName, removeClassName } from "@js/utils";
 
-const toggleCategoryExpand = (id) => {
-  const categoryContainer = document.getElementById(`category-${id}`);
+export const toggleCategoryExpand = (id) => {
+  const categoryContainer = document.querySelector(
+    `[data-category-container-id="${id}"]`,
+  );
+  console.log(
+    "🚀 ~ categoryAccordion.js:5 ~ categoryContainer:",
+    categoryContainer,
+  );
 
   if (!categoryContainer) return;
 
@@ -16,7 +22,7 @@ const toggleCategoryExpand = (id) => {
   }
 };
 
-document.querySelectorAll("#category-toggle-button").forEach((button) => {
+document.querySelectorAll("category-toggle-button").forEach((button) => {
   button.addEventListener("click", (e) => {
     const categoryId = e.currentTarget.getAttribute("data-category-id");
     toggleCategoryExpand(categoryId);

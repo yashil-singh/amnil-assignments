@@ -6,16 +6,20 @@
   @apply text-lg font-semibold;
 }
 
-.todo-container {
-  @apply border-border flex max-h-0 flex-row justify-between overflow-hidden opacity-0 duration-300 max-md:px-2;
+.category-container {
+  @apply max-h-0 overflow-hidden opacity-0 duration-300 max-md:px-2;
 }
 
-.todo-container.active {
-  @apply max-h-full border-b py-4 opacity-100 max-md:px-2;
+.category-container.active {
+  @apply max-h-full py-4 opacity-100 max-md:px-2;
 }
 
-.todo-container.closing {
+.category-container.closing {
   @apply max-h-0 opacity-0;
+}
+
+.todo-container {
+  @apply border-borderflex flex-row justify-between overflow-hidden border-b py-4 duration-300 max-md:px-2;
 }
 
 .todo-details {

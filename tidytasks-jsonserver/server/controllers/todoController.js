@@ -65,16 +65,16 @@ export const getTodosByUserIdAndCategory = async (id) => {
     const todosResponse = await fetch(`${BASE_URL}/todos`);
     const todos = await todosResponse.json();
 
-    const todosByCategory = todos.reduce((accTodos, currTodo) => {
-      if (!acc[currTodo.category]) {
-        accTodos[currTodo.category] = [];
+    const groupedTodos = todos.reduce((acc, todo) => {
+      const category = todo.category.trim() || "Unnamed"; // Use "Unnamed" for empty categories
+      if (!acc[category]) {
+        acc[category] = [];
       }
+      acc[category].push(todo);
+      return acc;
+    }, {});
 
-      accTodos[currTodo.category].push(currTodo);
-      return accTodos;
-    });
-
-    return response(true, "", todosByCategory.reverse());
+    return response(true, "", groupedTodos);
   } catch (error) {
     return response(false, error.message);
   }

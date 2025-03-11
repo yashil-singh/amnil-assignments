@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 
-const currentUser = JSON.parse(localStorage.getItem("user"));
+export const currentUser = JSON.parse(localStorage.getItem("user"));
 
 export const loadUserData = () => {
   const username = document.querySelectorAll("#current-user-username");
