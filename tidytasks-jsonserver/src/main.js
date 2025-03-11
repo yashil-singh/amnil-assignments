@@ -5,8 +5,6 @@ import { toastError } from "@js/ui/toast";
 // Checking for token in localstorage
 const token = localStorage.getItem("token");
 
-if (!token) window.location.href = "/login";
-
 const verify = async () => {
   const validToken = await verifyToken(token);
 
@@ -24,12 +22,15 @@ const verify = async () => {
     } else {
       // Setting user data in local storage
       localStorage.setItem("user", JSON.stringify(validToken.data));
+      // Loading user data;
+      loadUserData();
     }
   }
 };
 
-// Verifying token
-verify();
-
-// Loading user data;
-loadUserData();
+if (!token) {
+  window.location.href = "/login";
+} else {
+  // Verifying token
+  verify();
+}
