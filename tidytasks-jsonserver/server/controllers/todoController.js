@@ -60,6 +60,26 @@ export const getTodosByUserId = async (id) => {
   }
 };
 
+export const getTodosByUserIdAndCategory = async (id) => {
+  try {
+    const todosResponse = await fetch(`${BASE_URL}/todos`);
+    const todos = await todosResponse.json();
+
+    const todosByCategory = todos.reduce((accTodos, currTodo) => {
+      if (!acc[currTodo.category]) {
+        accTodos[currTodo.category] = [];
+      }
+
+      accTodos[currTodo.category].push(currTodo);
+      return accTodos;
+    });
+
+    return response(true, "", todosByCategory.reverse());
+  } catch (error) {
+    return response(false, error.message);
+  }
+};
+
 export const updateTodo = async (id, title, category, userId) => {
   try {
     if (!id) throw new Error("Todo ID is required.");

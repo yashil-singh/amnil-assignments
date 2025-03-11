@@ -1,3 +1,5 @@
+import { addClassName, removeClassName } from "@js/utils";
+
 const toggleCategoryExpand = (id) => {
   const categoryContainer = document.getElementById(`category-${id}`);
 

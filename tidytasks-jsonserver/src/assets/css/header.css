@@ -11,7 +11,7 @@
 }
 
 .profile-dropdown-btn {
-  @apply rounded-full ring-2 ring-white;
+  @apply ring-hover size-10 rounded-full bg-[url('../assets/images/avatar-placeholder.png')] bg-contain;
 }
 
 .avatar {

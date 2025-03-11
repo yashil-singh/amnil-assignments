@@ -103,7 +103,7 @@
 
           <span class="profile-dropdown-btn-container">
             <button class="profile-dropdown-btn" id="profile-dropdown-btn">
-              <span id="current-user-avatar-container"> </span>
+              <span id="current-user-avatar-container"></span>
             </button>
 
             <div class="profile-dropdown-container">
@@ -149,16 +149,6 @@
           </div>
         </div>
 
-        <!-- <div class="mt-4 flex items-end justify-between max-md:pl-2">
-          <h1 class="text-lg font-medium">Completed</h1>
-        </div>
-
-        <div class="mt-2" id="completed-tasks-container">
-          <p id="no-completed-tasks-message" class="max-md:pl-2">
-            To tasks completed yet.
-          </p>
-        </div> -->
-
         <div class="flex items-end justify-between max-md:px-2">
           <h1 class="text-lg font-medium">All Todos</h1>
 
@@ -174,9 +164,12 @@
         <div class="mt-2" id="tasks-container"></div>
       </section>
 
+      <script src="assets/js/ui/profileDropdown.js"></script>
+
       <script type="module" src="./main.js"></script>
       <script type="module" src="assets/js/auth/logout.js"></script>
-      <script src="assets/js/ui/profileDropdown.js"></script>
+
+      <script type="module" src="assets/js/loadToods.js"></script>
 
       <script src="https://unpkg.com/lucide@latest"></script>
       <script>

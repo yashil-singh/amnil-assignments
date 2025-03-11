@@ -1,21 +1,14 @@
 import { editTodoApi } from "@js/api/todos";
 import { toastError, toastSuccess } from "@js/ui/toast";
+
+import { closeModal } from "@js/ui/modal";
 import {
   editTodoCategoryInput,
   editTodoSubmitButton,
   editTodoTitleInput,
-} from "@js/todos/todo";
-import { closeModal } from "@js/ui/modal";
+} from "./todoElements";
 
 const titleError = document.getElementById("edit-title-error");
-
-// Reset the form
-export const resetEditTodoForm = () => {
-  editTodoSubmitButton.disabled = false;
-  editTodoSubmitButton.innerText = "Edit";
-  titleError.innerText = "";
-  editTodoTitleInput.classList.remove("input-error");
-};
 
 export const editTodo = async (id) => {
   const title = editTodoTitleInput.value;

@@ -35,12 +35,6 @@ const setSeletedTodo = (button) => {
   selectedTodo = { todoId, todoTitle, todoCategory };
 };
 
-// Opening add todo modal
-openAddModalButton?.addEventListener("click", () => {
-  openModal(addTodoModal);
-  addTodoTitleInput.focus();
-});
-
 // Adding event listeners to action buttons
 todosContainer?.addEventListener("click", async (e) => {
   const deleteButton = e.target.closest(".delete-todo");
@@ -70,73 +64,8 @@ todosContainer?.addEventListener("click", async (e) => {
   }
 });
 
-// Reset the todo form
-export const resetAddTodoForm = () => {
-  addTodoSubmitButton.disabled = false;
-  addTodoSubmitButton.innerText = "Add";
-  titleError.innerText = "";
-  addTodoTitleInput.classList.remove("input-error");
-};
-
-// Reset the edit todo form
-export const resetEditTodoForm = () => {
-  editTodoSubmitButton.disabled = false;
-  editTodoSubmitButton.innerText = "Edit";
-  titleError.innerText = "";
-  editTodoTitleInput.classList.remove("input-error");
-};
-
-// Creating todo
-addTodoForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const newTodoElement = await createTodo();
-
-  if (!newTodoElement) return;
-
-  if (todosContainer.innerText === "No todos added yet.") {
-    todosContainer.innerText = "";
-  }
-  todosContainer.prepend(newTodoElement);
-  lucide.createIcons();
-
-  addTodoTitleInput.value = "";
-  addTodoCategoryInput.value = "";
-});
-
-// Editing todo
-editTodoForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const id = selectedTodo.todoId;
-
-  await editTodo(id);
-});
-
-// Deleting todo
-deleteTodoSubmitButton.addEventListener("click", async () => {
-  const id = selectedTodo.todoId;
-
-  await deleteTodo(id);
-
-  if (todosContainer.innerHTML === "") {
-    todosContainer.innerText = "No todos added yet.";
-  }
-});
-
-export const loadTodos = async () => {
-  todosContainer.innerText = "Loading todos...";
-  const todos = await fetchTodos();
-
-  todosContainer.innerText = "";
-  todos.forEach((todo) => {
-    const todoElement = createTodoElement(todo);
-
-    todosContainer.appendChild(todoElement);
-  });
-
-  if (todos.length < 1) todosContainer.innerText = "No todos added yet.";
-
-  lucide.createIcons();
+export const loadCategories = () => {
+  console.log("Loaded Categories");
 };
 
 console.log(import.meta.url);

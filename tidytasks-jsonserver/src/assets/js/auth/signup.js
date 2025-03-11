@@ -15,7 +15,7 @@ const resetForm = () => {
   usernameError.innerText = "";
   passwordError.innerText = "";
   fullName.classList.remove("input-error");
-  username.classList.remove("input-error");
+  username?.classList.remove("input-error");
   password.classList.remove("input-error");
 };
 
@@ -29,11 +29,11 @@ submitButton.addEventListener("click", async (e) => {
     nameError.innerText = "Full name is required.";
   }
 
-  if (!username.value) {
-    username.classList.add("input-error");
+  if (!username?.value) {
+    username?.classList.add("input-error");
 
     if (fullName.value) {
-      username.focus();
+      username?.focus();
     }
 
     usernameError.innerText = "Username is required.";
@@ -42,7 +42,7 @@ submitButton.addEventListener("click", async (e) => {
   if (!password.value) {
     password.classList.add("input-error");
 
-    if (username.value) {
+    if (username?.value) {
       password.focus();
     }
 
@@ -54,13 +54,17 @@ submitButton.addEventListener("click", async (e) => {
   submitButton.disabled = true;
   submitButton.innerText = "Signing up...";
 
-  const response = await signup(fullName.value, username.value, password.value);
+  const response = await signup(
+    fullName.value,
+    username?.value,
+    password.value,
+  );
 
   if (response.success) {
     toastSuccess(response.message);
 
     fullName.value = "";
-    username.value = "";
+    username?.value = "";
     password.value = "";
 
     setTimeout(() => {

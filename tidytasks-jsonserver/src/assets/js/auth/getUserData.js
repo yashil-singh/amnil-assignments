@@ -10,7 +10,7 @@ export const loadUserData = () => {
     "#current-user-avatar-container",
   );
 
-  username.forEach((e) => {
+  username?.forEach((e) => {
     e.innerHTML = currentUser.username;
   });
 
@@ -27,7 +27,8 @@ export const loadUserData = () => {
     const img = document.createElement("img");
     img.src = `https://avatar.iran.liara.run/username?username=${currentUser.name}`;
     img.classList.add("avatar");
-
-    e.append(img);
+    img.onload = () => {
+      e.append(img);
+    };
   });
 };

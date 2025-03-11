@@ -1,4 +1,45 @@
 {
-  "users": [],
-  "todos": []
+  "users": [
+    {
+      "id": "1",
+      "name": "Yashil Singh",
+      "username": "yaashil.s",
+      "password": "$2b$10$8dsD2iO6JwGY.SmGhkGiP.YRrurTuHSNrlUC29axusmZ9fuYtE83K",
+      "createdAt": "2025-03-11T05:17:11.893Z"
+    }
+  ],
+  "todos": [
+    {
+      "id": "1",
+      "title": "Edit Working?",
+      "category": "Added",
+      "createdAt": "2025-03-11T05:34:34.232Z",
+      "userId": 1,
+      "isCompleted": false
+    },
+    {
+      "id": "2",
+      "title": "After changes",
+      "category": "",
+      "createdAt": "2025-03-11T06:28:09.657Z",
+      "userId": 1,
+      "isCompleted": false
+    },
+    {
+      "id": "3",
+      "title": "Still Working?",
+      "category": "",
+      "createdAt": "2025-03-11T06:34:50.306Z",
+      "userId": 1,
+      "isCompleted": false
+    },
+    {
+      "id": "4",
+      "title": "No Errors?",
+      "category": "",
+      "createdAt": "2025-03-11T06:35:18.340Z",
+      "userId": 1,
+      "isCompleted": false
+    }
+  ]
 }

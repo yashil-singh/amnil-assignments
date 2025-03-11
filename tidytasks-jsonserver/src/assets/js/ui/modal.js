@@ -1,4 +1,8 @@
-import { addTodoTitleInput } from "@js/todos/todo";
+import {
+  addTodoModal,
+  deleteTodoModal,
+  editTodoModal,
+} from "@js/todos/todoElements";
 import { addClassName, removeClassName } from "@js/utils";
 
 // Overlay element
@@ -46,3 +50,14 @@ document?.querySelectorAll("[data-close-modal]").forEach((button) => {
 
 // Event listener to close the modal when overlay is clicked
 overlay?.addEventListener("click", closeModal);
+
+// Avoid closing modal when clicking on the modal content
+addTodoModal?.addEventListener("click", (e) => {
+  e.stopPropagation();
+});
+editTodoModal?.addEventListener("click", (e) => {
+  e.stopPropagation();
+});
+deleteTodoModal?.addEventListener("click", (e) => {
+  e.stopPropagation();
+});

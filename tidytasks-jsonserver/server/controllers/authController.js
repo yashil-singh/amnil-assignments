@@ -9,7 +9,7 @@ export const signupUser = async (fullName, username, password) => {
       throw new Error("All fields are required.");
 
     if (fullName.trim().length < 1) throw new Error("Full name is required.");
-    if (username.trim().length < 1) throw new Error("Invalid username.");
+    if (username?.trim().length < 1) throw new Error("Invalid username?.");
     if (password.trim().length < 5)
       throw new Error("Password not strong enough.");
 
