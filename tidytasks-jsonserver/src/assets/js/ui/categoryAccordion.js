@@ -18,7 +18,7 @@ export const toggleCategoryExpand = (id) => {
   }
 };
 
-document.querySelectorAll("category-toggle-button").forEach((button) => {
+export const addAccordion = (button) => {
   button.addEventListener("click", (e) => {
     const categoryId = e.currentTarget.getAttribute("data-category-id");
     toggleCategoryExpand(categoryId);
@@ -39,4 +39,4 @@ document.querySelectorAll("category-toggle-button").forEach((button) => {
       }, 300);
     }
   });
-});
+};

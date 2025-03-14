@@ -25,7 +25,7 @@ import {
 } from "./todoElements";
 import { getTodosByUserIdAndCategory } from "@controllers/todoController";
 import { currentUser } from "@js/auth/getUserData";
-import { toggleCategoryExpand } from "@js/ui/categoryAccordion";
+import { addAccordion } from "@js/ui/categoryAccordion";
 
 const categoryContainer = document.getElementById("categories-container");
 
@@ -165,6 +165,10 @@ export const loadCategories = async () => {
 
       categoryContainer.appendChild(div);
       categoryContainer.appendChild(document.createElement("br"));
+
+      const button = document.querySelector(`[data-category-id="${category}"]`);
+
+      addAccordion(button);
     }
   }
 
