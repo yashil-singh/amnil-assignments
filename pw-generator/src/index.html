@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Generator</title>
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="fluid flex h-14 items-center justify-center">
+      <img src="./assets/img/logo.svg" class="size-10" />
+    </header>
+    <main
+      class="fluid flex min-h-[calc(100vh-56px)] items-center justify-center"
+    >
+      <div class="pb-12">
+        <h1 class="text-center text-2xl font-black md:text-4xl">
+          Generate a random password
+        </h1>
+
+        <p class="text-muted mt-4 text-center md:text-lg">
+          Generate a passwords in just one click. Keep your accounts safe with
+          randomly generated, highly secure passwords tailored to your needs. No
+          more weak or reused passwords—protect your digital world effortlessly!
+          🔒✨
+        </p>
+
+        <div class="mt-12 flex flex-col items-center gap-12 lg:flex-row">
+          <img src="./assets/img/secure.svg" class="h-80" />
+
+          <section class="flex w-full flex-col gap-12">
+            <!-- Generated Password -->
+            <div class="flex w-full flex-col items-center gap-4 lg:flex-row">
+              <div class="input flex items-center gap-4">
+                <p
+                  class="line-clamp-1! block max-w-[280px] text-ellipsis"
+                  id="generated-password"
+                ></p>
+
+                <span
+                  class="ml-auto w-full max-w-[120px] rounded-3xl px-4 py-2 text-center text-sm font-bold text-white"
+                  id="generated-password-strength"
+                >
+                </span>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button class="btn btn-ghost btn-icon" id="regenerate-button">
+                  <i data-lucide="rotate-ccw" class="pointer-events-none"></i>
+                </button>
+
+                <div class="relative">
+                  <button class="btn btn-primary" id="copy-button">
+                    Copy <i data-lucide="copy" class="pointer-events-none"></i>
+                  </button>
+
+                  <div class="copied" id="copied-text">
+                    Copied to clipboard!
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Password Length -->
+            <div class="flex flex-col items-center gap-4 lg:flex-row">
+              <div class="w-full max-w-[193px]">
+                <span class="text-xl">Password Length: </span>
+                <span class="text-xl font-bold" id="password-length">15</span>
+              </div>
+
+              <div class="flex w-full flex-1 items-center gap-4">
+                <button
+                  class="btn btn-ghost btn-icon"
+                  id="length-slider-minus-button"
+                >
+                  <i data-lucide="minus" class="pointer-events-none"></i>
+                </button>
+
+                <input class="slider w-full" type="range" id="length-slider" />
+
+                <button
+                  class="btn btn-ghost btn-icon"
+                  id="length-slider-plus-button"
+                >
+                  <i data-lucide="plus" class="pointer-events-none"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Characters Used -->
+            <div class="flex flex-col items-center gap-8 lg:flex-row">
+              <span class="text-xl">Characters used: </span>
+
+              <div class="flex flex-1 items-center gap-8">
+                <div class="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="capital-letters"
+                    class="password-option size-6"
+                    id="capital-letters-checkbox"
+                    checked
+                  />
+                  <label for="capital-letters" class="font-bold md:text-xl">
+                    ABC
+                  </label>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="small-letters"
+                    class="password-option size-6"
+                    id="small-letters-checkbox"
+                    checked
+                  />
+                  <label for="small-letters" class="font-bold md:text-xl">
+                    abc
+                  </label>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="numbers"
+                    class="password-option size-6"
+                    id="numbers-checkbox"
+                    checked
+                  />
+                  <label for="numbers" class="font-bold md:text-xl">123</label>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="special-chars"
+                    class="password-option size-6"
+                    id="special-char-checkbox"
+                  />
+                  <label for="special-chars" class="font-bold md:text-xl">
+                    #$&
+                  </label>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="main.js"></script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
