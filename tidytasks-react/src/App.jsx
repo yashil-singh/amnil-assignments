@@ -50,7 +50,7 @@ function App() {
       <AuthContextProvider>
         <RouterProvider router={router} />
         <ToastContainer
-          position="top-right"
+          position="bottom-right"
           autoClose={3000}
           pauseOnFocusLoss={false}
           hideProgressBar={true}

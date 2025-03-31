@@ -37,14 +37,9 @@ const useAuth = () => {
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(password, salt);
 
-    const maxId =
-      Number(users.reduce((max, user) => (user.id > max ? user.id : max), 0)) +
-      1;
-
     const joined = new Date();
 
     const body = {
-      id: maxId.toString(),
       name,
       username,
       password: hashedPassword,
@@ -62,14 +57,9 @@ const useAuth = () => {
     if (!createResponse.ok)
       throw new Error("Something went wrong. Please try again.");
 
-    const user = {
-      id: maxId,
-      username,
-      name,
-      joined,
-    };
+    const user = await createResponse.json();
 
-    return { message: "Account created.", user };
+    return { message: "Account created.", user: { ...user, password: null } };
   };
 
   return { login, signup };

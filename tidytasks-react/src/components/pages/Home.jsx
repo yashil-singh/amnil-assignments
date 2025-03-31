@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <>
       <span className="text-lg font-medium">
-        Hi, {user.name?.split(" ")[0]} 👋
+        Hi, {user?.name?.split(" ")[0]} 👋
       </span>
 
       <h1 className="text-xl font-bold">Manage your daily tasks</h1>

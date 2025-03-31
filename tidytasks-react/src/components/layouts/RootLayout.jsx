@@ -8,7 +8,9 @@ const RootLayout = () => {
   const { user } = useAuthContext();
 
   useEffect(() => {
-    if (!user) navigate("/login");
+    if (!user) {
+      navigate("/login");
+    }
   }, [user]);
 
   return (
