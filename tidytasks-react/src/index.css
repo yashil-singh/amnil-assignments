@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #09090b;
+  --color-primary: #95bfbc;
+  --color-border: #e4e4e7;
+  --color-destructive: #ef4444;
+
+  --font-figtree: "Figtree", sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply h-full w-full bg-background text-foreground font-figtree;
+  }
+}
+
+.Toastify__toast {
+  @apply rounded-xl font-medium! font-figtree text-foreground! border shadow-none;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--error {
+  @apply bg-destructive! text-white! border-destructive;
+}
+
+.Toastify__close-button {
+  @apply text-inherit!;
+}
