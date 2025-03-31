@@ -11,6 +11,7 @@ import Home from "./components/pages/Home";
 import Categories from "./components/pages/Categories";
 import NotFound from "./components/pages/NotFound";
 import { Flip, ToastContainer } from "react-toastify";
+import { AuthContextProvider } from "./context/AuthContext";
 
 function App() {
   // Creating Router
@@ -46,18 +47,20 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={router} />
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        pauseOnFocusLoss={false}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        theme="colored"
-        transition={Flip}
-      />
+      <AuthContextProvider>
+        <RouterProvider router={router} />
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          pauseOnFocusLoss={false}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          theme="colored"
+          transition={Flip}
+        />
+      </AuthContextProvider>
     </>
   );
 }

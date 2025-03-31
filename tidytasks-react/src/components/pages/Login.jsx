@@ -6,8 +6,10 @@ import { Loader2 } from "lucide-react";
 import useFetch from "@/hooks/useFetch";
 import useAuth from "@/hooks/useAuth";
 import { toast } from "react-toastify";
+import useAuthContext from "@/hooks/useAuthContext";
 
 const Login = () => {
+  const { setUserData } = useAuthContext();
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
@@ -58,6 +60,9 @@ const Login = () => {
       resetInputs();
 
       toast(data.message);
+
+      setUserData(data.user);
+
       navigate("/");
     }
   }, [data]);

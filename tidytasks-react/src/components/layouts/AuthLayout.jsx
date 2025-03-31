@@ -1,9 +1,17 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import Searching from "@/assets/searching.svg";
 import Logo from "../ui/Logo";
+import useAuthContext from "@/hooks/useAuthContext";
 
 const AuthLayout = () => {
+  const navigate = useNavigate();
+  const { user } = useAuthContext();
+
+  useEffect(() => {
+    if (user) navigate("/");
+  }, [user]);
+
   return (
     <div className="flex h-screen w-full relative">
       <Logo

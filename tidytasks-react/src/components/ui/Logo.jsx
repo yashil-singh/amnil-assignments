@@ -11,7 +11,7 @@ const Logo = ({ className, logoClassName, faviconClassName }) => {
       />
       <span
         className={twMerge(
-          "font-black hidden md:block text-[#aad8d5]",
+          "font-black hidden md:block text-[#aad8d5] text-xl",
           logoClassName
         )}
       >

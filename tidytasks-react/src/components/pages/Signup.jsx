@@ -6,9 +6,11 @@ import useAuth from "@/hooks/useAuth";
 import useFetch from "@/hooks/useFetch";
 import { toast } from "react-toastify";
 import { Loader2 } from "lucide-react";
+import useAuthContext from "@/hooks/useAuthContext";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const { setUserData } = useAuthContext();
 
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState("");
@@ -69,6 +71,9 @@ const Signup = () => {
       resetInputs();
 
       toast(data.message);
+
+      setUserData(data.user);
+
       navigate("/");
     }
   }, [data]);
