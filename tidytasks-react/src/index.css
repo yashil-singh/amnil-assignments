@@ -55,9 +55,9 @@
 }
 
 .Toastify__toast-theme--colored.Toastify__toast--error {
-  @apply bg-destructive! text-white! border-destructive;
+  @apply bg-background! text-destructive!;
 }
 
 .Toastify__close-button {
-  @apply text-inherit!;
+  @apply text-black!;
 }
