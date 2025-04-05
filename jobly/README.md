@@ -80,19 +80,13 @@ cd server
 npm install
 ```
 
-4. Install json-server
+4. Run the JSON server
 
 ```
-npm install -g json-server
+npm start
 ```
 
-5. Run the JSON server
-
-```
-json-server --watch db.json --port 3000
-```
-
-6. View api using following url
+5. View api using following url
 
 ```
 http://localhost:3000
