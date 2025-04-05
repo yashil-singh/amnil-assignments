@@ -95,7 +95,7 @@ json-server --watch db.json --port 3000
 6. View api using following url
 
 ```
-json-server --watch db.json --port 5000
+http://localhost:3000
 ```
 
 ### Happy Coding 🤘
