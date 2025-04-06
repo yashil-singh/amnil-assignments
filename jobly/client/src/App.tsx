@@ -10,48 +10,40 @@ import Login from "./components/pages/Login";
 import AuthLayout from "./components/layouts/AuthLayout";
 import Signup from "./components/pages/Signup";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { fetchUser } from "./lib/slices/auth/authSlice";
+import { useEffect } from "react";
 import { AppDispatch, RootState } from "./lib/store";
 import Logo from "./components/ui/Logo";
 import { setTheme } from "./lib/slices/theme/themeSlice";
+import { fetchUser } from "./services/auth/api";
+import { clearUser, setUser } from "./lib/slices/auth/authSlice";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
-  const [isThemeLoaded, setIsThemeLoaded] = useState(false);
 
   const loading = useSelector((state: RootState) => state.auth.loading);
 
-  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
-
+  // useEffect for getting stored theme
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
-
     if (savedTheme) {
-      dispatch(setTheme(savedTheme === "dark"));
+      dispatch(setTheme(savedTheme as "light" | "dark"));
     } else {
-      dispatch(setTheme(false));
+      dispatch(setTheme("dark"));
     }
-
-    setIsThemeLoaded(true);
   }, [dispatch]);
 
+  // useEffect to authenticate user
   useEffect(() => {
-    if (isThemeLoaded) {
-      const theme = isDarkMode ? "dark" : "light";
-
-      if (isDarkMode) {
-        document.body.classList.add("dark");
-      } else {
-        document.body.classList.remove("dark");
+    const authenticate = async () => {
+      try {
+        const response = await fetchUser();
+        dispatch(setUser(response.user));
+      } catch {
+        dispatch(clearUser());
       }
+    };
 
-      localStorage.setItem("theme", theme);
-    }
-  }, [isDarkMode, isThemeLoaded]);
-
-  useEffect(() => {
-    dispatch(fetchUser());
+    authenticate();
   }, [dispatch]);
 
   const router = createBrowserRouter([

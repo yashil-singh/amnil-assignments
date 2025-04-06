@@ -140,12 +140,12 @@ export const authenticate = async (req, res) => {
     const isValid = verifyToken(token);
 
     if (!isValid)
-      return res.status(403).json({ message: "Invalid or expired token" });
+      return res.status(401).json({ message: "Invalid or expired token" });
 
     const user = decodeToken(token);
 
     if (!user)
-      return res.status(403).json({ message: "Invalid or expired token" });
+      return res.status(401).json({ message: "Invalid or expired token" });
 
     return res.status(200).json({ user });
   } catch (error) {

@@ -1,3 +1,3 @@
 export type ThemeState = {
-  isDarkMode: boolean;
+  theme: "light" | "dark";
 };

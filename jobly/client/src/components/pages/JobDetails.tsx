@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchJobById } from "../../services/job/api";
 import { useEffect, useState } from "react";
 import { Calendar, Hourglass, Loader2, MapPin } from "lucide-react";
@@ -11,16 +11,21 @@ import { AxiosError } from "axios";
 import { toast } from "sonner";
 
 const JobDetails = () => {
+  const navigate = useNavigate();
+
   const { id } = useParams<{ id: string }>();
 
   const [job, setJob] = useState<Job>();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getJobDetails = async () => {
       setLoading(true);
       try {
         const response = await fetchJobById(id!);
+
+        if (!response) navigate("/not-found");
+
         setJob(response);
       } catch (error) {
         if (error instanceof AxiosError) {
@@ -34,7 +39,7 @@ const JobDetails = () => {
     };
 
     getJobDetails();
-  }, [id]);
+  }, [id, navigate]);
 
   return (
     <div className="fluid px-4">

@@ -1,11 +1,28 @@
 {
-  "users": [],
+  "users": [
+    {
+      "id": 1,
+      "name": "Yashil Singh",
+      "email": "yashil@gmail.com",
+      "password": "$2b$10$mN8E3QNf54Xkf1gI5x0/s.xK6EwDiplfPtI8xNpn5sgmX4.iCCNX2"
+    },
+    {
+      "id": 2,
+      "name": "Test User",
+      "email": "test@gmail.com",
+      "password": "$2b$10$MRipsxWblwUa53iSdjSY5edl6iDZ4mnhnIv90fJqkzvBGAFqdZseK"
+    }
+  ],
   "jobs": [
     {
       "id": "1",
       "title": "Frontend Developer",
       "description": "We are looking for a skilled frontend developer proficient in React and Tailwind CSS.",
-      "tags": ["React", "Tailwind CSS", "JavaScript"],
+      "tags": [
+        "React",
+        "Tailwind CSS",
+        "JavaScript"
+      ],
       "company": "EB Pearls",
       "location": "Kathmandu, Nepal",
       "experienceRequired": "2+ years",
@@ -19,7 +36,11 @@
       "id": "2",
       "title": "Backend Developer",
       "description": "Seeking an experienced backend developer with expertise in Node.js and PostgreSQL.",
-      "tags": ["Node.js", "PostgreSQL", "Express"],
+      "tags": [
+        "Node.js",
+        "PostgreSQL",
+        "Express"
+      ],
       "company": "CloudFactory",
       "location": "Lalitpur, Nepal",
       "experienceRequired": "3+ years",
@@ -33,7 +54,11 @@
       "id": "3",
       "title": "UI/UX Designer",
       "description": "Looking for a UI/UX designer with experience in Figma and user research.",
-      "tags": ["Figma", "UX Research", "Prototyping"],
+      "tags": [
+        "Figma",
+        "UX Research",
+        "Prototyping"
+      ],
       "company": "LogPoint",
       "location": "Kathmandu, Nepal",
       "experienceRequired": "2+ years",
@@ -47,7 +72,11 @@
       "id": "4",
       "title": "Software Engineer",
       "description": "Hiring a software engineer with full-stack development experience in MERN stack.",
-      "tags": ["MERN", "JavaScript", "MongoDB"],
+      "tags": [
+        "MERN",
+        "JavaScript",
+        "MongoDB"
+      ],
       "company": "Fusemachines",
       "location": "Remote, Nepal",
       "experienceRequired": "3+ years",
@@ -61,7 +90,11 @@
       "id": "5",
       "title": "DevOps Engineer",
       "description": "Seeking a DevOps engineer experienced with AWS, Docker, and CI/CD pipelines.",
-      "tags": ["AWS", "Docker", "CI/CD"],
+      "tags": [
+        "AWS",
+        "Docker",
+        "CI/CD"
+      ],
       "company": "Leapfrog Technology",
       "location": "Kathmandu, Nepal",
       "experienceRequired": "3+ years",
@@ -75,7 +108,11 @@
       "id": "6",
       "title": "QA Engineer",
       "description": "Looking for a QA engineer experienced in automated and manual testing.",
-      "tags": ["Selenium", "Jest", "Manual Testing"],
+      "tags": [
+        "Selenium",
+        "Jest",
+        "Manual Testing"
+      ],
       "company": "Deerwalk",
       "location": "Kathmandu, Nepal",
       "experienceRequired": "2+ years",
@@ -89,7 +126,11 @@
       "id": "7",
       "title": "WordPress Developer",
       "description": "Hiring a WordPress developer with experience in custom theme development.",
-      "tags": ["WordPress", "PHP", "WooCommerce"],
+      "tags": [
+        "WordPress",
+        "PHP",
+        "WooCommerce"
+      ],
       "company": "Hansikar Technologies",
       "location": "Lalitpur, Nepal",
       "experienceRequired": "2+ years",
@@ -103,7 +144,11 @@
       "id": "8",
       "title": "Android Developer",
       "description": "Seeking an Android developer with expertise in Kotlin and Jetpack Compose.",
-      "tags": ["Android", "Kotlin", "Jetpack Compose"],
+      "tags": [
+        "Android",
+        "Kotlin",
+        "Jetpack Compose"
+      ],
       "company": "Cotiviti Nepal",
       "location": "Bhaktapur, Nepal",
       "experienceRequired": "3+ years",
@@ -117,7 +162,11 @@
       "id": "9",
       "title": "iOS Developer",
       "description": "Looking for an iOS developer with experience in Swift and SwiftUI.",
-      "tags": ["iOS", "Swift", "SwiftUI"],
+      "tags": [
+        "iOS",
+        "Swift",
+        "SwiftUI"
+      ],
       "company": "EB Pearls",
       "location": "Kathmandu, Nepal",
       "experienceRequired": "3+ years",
@@ -131,7 +180,11 @@
       "id": "10",
       "title": "Project Manager",
       "description": "Hiring a project manager with experience in Agile methodologies.",
-      "tags": ["Agile", "Scrum", "Project Management"],
+      "tags": [
+        "Agile",
+        "Scrum",
+        "Project Management"
+      ],
       "company": "LogPoint",
       "location": "Lalitpur, Nepal",
       "experienceRequired": "4+ years",
@@ -145,7 +198,11 @@
       "id": "11",
       "title": "Cyber Security Analyst",
       "description": "Hiring a cybersecurity analyst with experience in penetration testing.",
-      "tags": ["Cybersecurity", "Penetration Testing", "Ethical Hacking"],
+      "tags": [
+        "Cybersecurity",
+        "Penetration Testing",
+        "Ethical Hacking"
+      ],
       "company": "Vianet Communications",
       "location": "Kathmandu, Nepal",
       "experienceRequired": "3+ years",
@@ -159,7 +216,11 @@
       "id": "12",
       "title": "Data Scientist",
       "description": "Seeking a data scientist proficient in Python and machine learning.",
-      "tags": ["Python", "Machine Learning", "Data Science"],
+      "tags": [
+        "Python",
+        "Machine Learning",
+        "Data Science"
+      ],
       "company": "Fusemachines",
       "location": "Remote, Nepal",
       "experienceRequired": "3+ years",
@@ -173,7 +234,11 @@
       "id": "13",
       "title": "Network Engineer",
       "description": "Hiring a network engineer with experience in Cisco and firewall security.",
-      "tags": ["Networking", "Cisco", "Firewall"],
+      "tags": [
+        "Networking",
+        "Cisco",
+        "Firewall"
+      ],
       "company": "WorldLink Communications",
       "location": "Kathmandu, Nepal",
       "experienceRequired": "2+ years",
@@ -187,7 +252,11 @@
       "id": "14",
       "title": "AI Engineer",
       "description": "Looking for an AI engineer with expertise in NLP and deep learning.",
-      "tags": ["AI", "Deep Learning", "NLP"],
+      "tags": [
+        "AI",
+        "Deep Learning",
+        "NLP"
+      ],
       "company": "Deerwalk",
       "location": "Lalitpur, Nepal",
       "experienceRequired": "3+ years",
@@ -201,7 +270,11 @@
       "id": "15",
       "title": "Graphic Designer",
       "description": "Seeking a graphic designer proficient in Adobe Illustrator and Photoshop.",
-      "tags": ["Graphic Design", "Illustrator", "Photoshop"],
+      "tags": [
+        "Graphic Design",
+        "Illustrator",
+        "Photoshop"
+      ],
       "company": "Yarsa Labs",
       "location": "Pokhara, Nepal",
       "experienceRequired": "2+ years",
@@ -215,7 +288,11 @@
       "id": "16",
       "title": "Social Media Manager",
       "description": "Hiring a social media manager with experience in digital marketing.",
-      "tags": ["Social Media", "Marketing", "SEO"],
+      "tags": [
+        "Social Media",
+        "Marketing",
+        "SEO"
+      ],
       "company": "MeroJob",
       "location": "Kathmandu, Nepal",
       "experienceRequired": "2+ years",
@@ -229,7 +306,11 @@
       "id": "17",
       "title": "Tech Support Engineer",
       "description": "Looking for a tech support engineer with experience in troubleshooting software issues.",
-      "tags": ["Tech Support", "Customer Service", "Troubleshooting"],
+      "tags": [
+        "Tech Support",
+        "Customer Service",
+        "Troubleshooting"
+      ],
       "company": "eSewa",
       "location": "Kathmandu, Nepal",
       "experienceRequired": "1+ years",
@@ -243,7 +324,11 @@
       "id": "18",
       "title": "Blockchain Developer",
       "description": "Hiring a blockchain developer with experience in Solidity and smart contracts.",
-      "tags": ["Blockchain", "Solidity", "Smart Contracts"],
+      "tags": [
+        "Blockchain",
+        "Solidity",
+        "Smart Contracts"
+      ],
       "company": "GrowByData",
       "location": "Kathmandu, Nepal",
       "experienceRequired": "3+ years",
@@ -257,7 +342,11 @@
       "id": "19",
       "title": "System Administrator",
       "description": "Seeking a system administrator with experience in Linux and cloud services.",
-      "tags": ["System Administration", "Linux", "Cloud"],
+      "tags": [
+        "System Administration",
+        "Linux",
+        "Cloud"
+      ],
       "company": "Leapfrog Technology",
       "location": "Lalitpur, Nepal",
       "experienceRequired": "3+ years",
@@ -271,7 +360,12 @@
       "id": "20",
       "title": "Machine Learning Engineer",
       "description": "Looking for a Machine Learning Engineer with experience in Python, TensorFlow, and NLP.",
-      "tags": ["Machine Learning", "Python", "TensorFlow", "NLP"],
+      "tags": [
+        "Machine Learning",
+        "Python",
+        "TensorFlow",
+        "NLP"
+      ],
       "company": "Nepal AI Labs",
       "location": "Kathmandu, Nepal",
       "experienceRequired": "3+ years",

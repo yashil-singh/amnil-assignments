@@ -1,5 +1,5 @@
 import { LoginPayload, SignupPayload, User } from "@/lib/slices/auth/types";
-import { POST } from "../api";
+import { GET, POST } from "../api";
 
 export const login = async (
   data: LoginPayload,
@@ -15,6 +15,12 @@ export const signup = async (
   return response;
 };
 
-export const logout = async () => {
-  await POST("/logout");
+export const logout = async (): Promise<{ message: "string" }> => {
+  const response = await POST("/logout");
+  return response;
+};
+
+export const fetchUser = async (): Promise<{ user: User }> => {
+  const response = await GET("/auth/me");
+  return response;
 };

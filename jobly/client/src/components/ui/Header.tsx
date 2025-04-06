@@ -17,6 +17,8 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/lib/store";
 import { clearUser } from "@/lib/slices/auth/authSlice";
 import { toggleTheme } from "@/lib/slices/theme/themeSlice";
+import { toast } from "sonner";
+import { AxiosError } from "axios";
 
 const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -26,8 +28,17 @@ const Header = () => {
   };
 
   const handleLogout = async () => {
-    logout();
-    dispatch(clearUser());
+    try {
+      const response = await logout();
+      toast.success(response.message);
+      dispatch(clearUser());
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data.message);
+      } else {
+        toast.error("Oops! Something went wrong.");
+      }
+    }
   };
 
   return (

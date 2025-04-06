@@ -1,17 +1,11 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthState, User } from "./types";
-import { GET } from "@/services/api";
 
 const initialState: AuthState = {
   user: null,
   isAuthenticated: false,
   loading: true,
 };
-
-export const fetchUser = createAsyncThunk("auth/fetchUser", async () => {
-  const response = await GET("/auth/me");
-  return response;
-});
 
 const authSlice = createSlice({
   name: "auth",
@@ -30,19 +24,6 @@ const authSlice = createSlice({
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchUser.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.isAuthenticated = true;
-        state.loading = false;
-      })
-      .addCase(fetchUser.rejected, (state) => {
-        state.user = null;
-        state.isAuthenticated = false;
-        state.loading = false;
-      });
   },
 });
 

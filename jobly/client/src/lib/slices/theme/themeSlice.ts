@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ThemeState } from "./types";
 
 const initialState: ThemeState = {
-  isDarkMode: false,
+  theme: "light",
 };
 
 const themeSlice = createSlice({
@@ -10,10 +10,24 @@ const themeSlice = createSlice({
   initialState,
   reducers: {
     toggleTheme: (state) => {
-      state.isDarkMode = !state.isDarkMode;
+      if (state.theme === "light") {
+        state.theme = "dark";
+        document.body.classList.add("dark");
+      } else {
+        state.theme = "light";
+        document.body.classList.remove("dark");
+      }
+
+      localStorage.setItem("theme", state.theme);
     },
-    setTheme: (state, action: PayloadAction<boolean>) => {
-      state.isDarkMode = action.payload;
+    setTheme: (state, action: PayloadAction<"light" | "dark">) => {
+      state.theme = action.payload;
+      if (action.payload === "dark") {
+        document.body.classList.add("dark");
+      } else {
+        document.body.classList.remove("dark");
+      }
+      localStorage.setItem("theme", state.theme);
     },
   },
 });
