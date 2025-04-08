@@ -3,7 +3,7 @@ import RootLayout from "./components/layouts/RootLayout";
 import Home from "./components/pages/Home";
 import Search from "./components/pages/Search";
 import Profile from "./components/pages/Profile";
-import Settings from "./components/pages/Settings";
+import Settings from "./components/pages/Settings/Settings";
 import JobDetails from "./components/pages/JobDetails";
 import NotFound from "./components/pages/NotFound";
 import Login from "./components/pages/Login";
@@ -16,11 +16,16 @@ import Logo from "./components/ui/Logo";
 import { setTheme } from "./lib/slices/theme/themeSlice";
 import { fetchUser } from "./services/auth/api";
 import { clearUser, setUser } from "./lib/slices/auth/authSlice";
+import { getSavedJobs } from "./services/job/api";
+import { setSaved } from "./lib/slices/saved/savedSlice";
+import SavedJobs from "./components/pages/SavedJobs";
+import SettingsLayout from "./components/layouts/SettingsLayout";
+import EditProfile from "./components/pages/Settings/EditProfile";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
 
-  const loading = useSelector((state: RootState) => state.auth.loading);
+  const { user, loading } = useSelector((state: RootState) => state.auth);
 
   // useEffect for getting stored theme
   useEffect(() => {
@@ -46,6 +51,20 @@ function App() {
     authenticate();
   }, [dispatch]);
 
+  // useEffect to get saved jobs
+  useEffect(() => {
+    const fetchSavedJobs = async () => {
+      try {
+        const response = await getSavedJobs();
+        dispatch(setSaved(response));
+      } catch (error) {
+        console.log("🚀 ~ App.tsx:55 ~ error:", error);
+      }
+    };
+
+    fetchSavedJobs();
+  }, [dispatch, user]);
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -70,7 +89,21 @@ function App() {
         },
         {
           path: "/settings",
-          element: <Settings />,
+          element: <SettingsLayout />,
+          children: [
+            {
+              index: true,
+              element: <Settings />,
+            },
+            {
+              path: "edit-profile",
+              element: <EditProfile />,
+            },
+          ],
+        },
+        {
+          path: "/saved-jobs",
+          element: <SavedJobs />,
         },
       ],
     },

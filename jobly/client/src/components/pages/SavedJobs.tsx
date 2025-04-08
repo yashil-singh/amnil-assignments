@@ -1,21 +1,24 @@
-import { fetchJobs } from "../../services/job/api";
-import JobCard from "../ui/JobCard";
+import { fetchSavedJobs } from "@/services/job/api";
 import { AxiosError } from "axios";
-import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import { Job } from "@/lib/types";
+import { toast } from "sonner";
+import JobCard from "../ui/JobCard";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/lib/store";
+import { setSaved } from "@/lib/slices/saved/savedSlice";
 import Loading from "../ui/Loading";
 
-const Home = () => {
-  const [jobs, setJobs] = useState<Job[]>([]);
+const SavedJobs = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const jobs = useSelector((state: RootState) => state.saved.saves);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getJobs = async () => {
       setLoading(true);
       try {
-        const response = await fetchJobs();
-        setJobs(response);
+        const response = await fetchSavedJobs();
+        dispatch(setSaved(response));
       } catch (error) {
         if (error instanceof AxiosError) {
           toast.error(error.response?.data.message);
@@ -28,12 +31,11 @@ const Home = () => {
     };
 
     getJobs();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="px-4">
-      <h1 className="text-2xl font-black">What are you looking for?</h1>
-
+      <h1 className="text-2xl font-black">Saved Jobs</h1>
       {loading ? (
         <Loading logoClassName="h-[50px]" />
       ) : (
@@ -47,7 +49,7 @@ const Home = () => {
         ) : (
           <div className="flex h-[40vh] items-center justify-center">
             <span className="text-center font-medium">
-              There are no job listings yet.
+              You have no saved jobs yet.
             </span>
           </div>
         ))
@@ -56,4 +58,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default SavedJobs;

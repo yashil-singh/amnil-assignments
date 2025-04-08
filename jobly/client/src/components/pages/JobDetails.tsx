@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchJobById } from "../../services/job/api";
+import { fetchJobById, toggleSave } from "../../services/job/api";
 import { useEffect, useState } from "react";
-import { Calendar, Hourglass, Loader2, MapPin } from "lucide-react";
+import { Bookmark, Calendar, Hourglass, MapPin } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/Button";
@@ -9,14 +9,44 @@ import { formatDate } from "date-fns";
 import { Job } from "@/lib/types";
 import { AxiosError } from "axios";
 import { toast } from "sonner";
+import Loading from "../ui/Loading";
+import { cn } from "@/lib/utils";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/lib/store";
+import { removeSavedJob, saveJob } from "@/lib/slices/saved/savedSlice";
 
 const JobDetails = () => {
   const navigate = useNavigate();
 
+  const saves = useSelector((state: RootState) => state.saved.saves);
+  const dispatch = useDispatch<AppDispatch>();
+
   const { id } = useParams<{ id: string }>();
+
+  const isSaved = saves.some((save) => save.id === id);
 
   const [job, setJob] = useState<Job>();
   const [loading, setLoading] = useState(true);
+
+  const onSave = async () => {
+    try {
+      const response = await toggleSave(id!);
+
+      if (isSaved) {
+        dispatch(removeSavedJob(response.job));
+      } else {
+        dispatch(saveJob(response.job));
+      }
+    } catch (error) {
+      console.log("🚀 ~ JobCard.tsx:33 ~ error:", error);
+
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message);
+      } else {
+        toast.error("Oops! Something went wrong.");
+      }
+    }
+  };
 
   useEffect(() => {
     const getJobDetails = async () => {
@@ -43,6 +73,8 @@ const JobDetails = () => {
 
   return (
     <div className="fluid px-4">
+      {loading && <Loading logoClassName="h-[50px]" />}
+
       {job && (
         <div className="flex flex-col gap-6">
           <div className="bg-accent relative h-40 rounded-xl">
@@ -52,7 +84,7 @@ const JobDetails = () => {
             />
           </div>
 
-          <section className="flex flex-col justify-between gap-1 px-4 sm:flex-row md:items-end">
+          <section className="flex justify-between gap-1 px-4">
             <div>
               <h1 className="text-2xl font-extrabold">{job.title}</h1>
 
@@ -62,6 +94,17 @@ const JobDetails = () => {
                 {job.location} • {job.jobType}
               </span>
             </div>
+
+            <Button
+              className="size-10"
+              variant="ghost"
+              size="icon"
+              onClick={onSave}
+            >
+              <Bookmark
+                className={cn("size-5", isSaved && "fill-foreground")}
+              />
+            </Button>
           </section>
 
           <Separator />
@@ -77,10 +120,7 @@ const JobDetails = () => {
                 <h2 className="text-xl font-bold">Top Skills</h2>
                 <div className="mt-2 flex flex-wrap gap-1">
                   {job.tags.map((tag) => (
-                    <Badge
-                      key={tag}
-                      className="rounded-full px-3 py-1 text-base"
-                    >
+                    <Badge key={tag} className="rounded-full px-3 py-1 text-sm">
                       {tag}
                     </Badge>
                   ))}
@@ -133,12 +173,6 @@ const JobDetails = () => {
               </Button>
             </section>
           </div>
-        </div>
-      )}
-
-      {loading && (
-        <div className="flex h-[40vh] items-center justify-center">
-          <Loader2 className="animate-spin" />
         </div>
       )}
     </div>

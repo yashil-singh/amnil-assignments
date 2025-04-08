@@ -4,9 +4,42 @@ import { Job } from "../../lib/types";
 import { format } from "date-fns";
 import { Button } from "./Button";
 import { Badge } from "./badge";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/lib/store";
+import { removeSavedJob, saveJob } from "@/lib/slices/saved/savedSlice";
+import { toggleSave } from "@/services/job/api";
+import { toast } from "sonner";
+import { AxiosError } from "axios";
+import { cn } from "@/lib/utils";
 
 const JobCard = ({ job }: { job: Job }) => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const { id, title, createdAt, company, tags, salary, location } = job;
+
+  const saves = useSelector((state: RootState) => state.saved.saves);
+  const isSaved = saves.some((job) => job.id === id);
+
+  const onSave = async () => {
+    try {
+      const response = await toggleSave(id);
+
+      if (isSaved) {
+        dispatch(removeSavedJob(response.job));
+      } else {
+        dispatch(saveJob(response.job));
+      }
+    } catch (error) {
+      console.log("🚀 ~ JobCard.tsx:33 ~ error:", error);
+
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message);
+      } else {
+        toast.error("Oops! Something went wrong.");
+      }
+    }
+  };
+
   return (
     <div className="rounded-xl border p-2">
       <section className="bg-primary text-primary-foreground space-y-4 rounded-md p-4">
@@ -15,8 +48,8 @@ const JobCard = ({ job }: { job: Job }) => {
             {format(createdAt, "d MMM, yyyy")}
           </Badge>
 
-          <Button variant="ghost-dark" size="icon">
-            <Bookmark className="size-5" />
+          <Button variant="ghost-dark" size="icon" onClick={onSave}>
+            <Bookmark className={cn("size-5", isSaved && "fill-foreground")} />
           </Button>
         </div>
 

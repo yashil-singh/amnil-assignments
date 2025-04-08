@@ -86,12 +86,17 @@ const Header = () => {
             <DropdownMenuTrigger className="cursor-pointer outline-none!">
               <AccountAvatar src="" className="size-10" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
+            <DropdownMenuContent className="text-lg font-medium">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <Link to="/profile">
                 <DropdownMenuItem className="cursor-pointer">
                   Profile
+                </DropdownMenuItem>
+              </Link>
+              <Link to="/saved-jobs">
+                <DropdownMenuItem className="cursor-pointer">
+                  Saved Jobs
                 </DropdownMenuItem>
               </Link>
               <DropdownMenuItem

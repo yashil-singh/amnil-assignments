@@ -1,14 +1,10 @@
-import { REGEX_EMAIL } from "../lib/constants";
-import {
-  comparePassword,
-  decodeToken,
-  generateToken,
-  hashPassword,
-  verifyToken,
-} from "../lib/utils";
+import { db } from "../index.js";
+
+import { REGEX_EMAIL } from "../lib/constants.js";
+import { comparePassword, generateToken, hashPassword } from "../lib/utils.js";
 import cookie from "cookie";
 
-export const signup = async (req, res, router) => {
+export const signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -19,8 +15,6 @@ export const signup = async (req, res, router) => {
       return res.status(400).json({ message: "Invalid email address." });
     }
 
-    const db = router.db;
-
     const users = db.get("users");
 
     const existingUser = users.find({ email }).value();
@@ -30,9 +24,7 @@ export const signup = async (req, res, router) => {
 
     const hashedPassword = await hashPassword(password);
 
-    const maxId = users.maxBy("id").value()?.id + 1 || 1;
-
-    const newUser = { id: maxId, name, email, password: hashedPassword };
+    const newUser = { id: Date.now(), name, email, password: hashedPassword };
     users.push(newUser).write();
 
     const token = await generateToken({
@@ -69,8 +61,6 @@ export const login = async (req, res, router) => {
 
     if (!email?.trim() || !password?.trim())
       return res.status(400).json({ message: "All fields are required." });
-
-    const db = router.db;
 
     const users = db.get("users");
 
@@ -131,21 +121,9 @@ export const logout = async (req, res) => {
   res.status(200).json({ message: "Logged out." });
 };
 
-export const authenticate = async (req, res) => {
+export const userData = async (req, res) => {
   try {
-    const { token } = req.cookies;
-
-    if (!token) return res.status(401).json({ message: "Token not found." });
-
-    const isValid = verifyToken(token);
-
-    if (!isValid)
-      return res.status(401).json({ message: "Invalid or expired token" });
-
-    const user = decodeToken(token);
-
-    if (!user)
-      return res.status(401).json({ message: "Invalid or expired token" });
+    const user = req.user;
 
     return res.status(200).json({ user });
   } catch (error) {

@@ -1,16 +1,16 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "Yashil Singh",
-      "email": "yashil@gmail.com",
-      "password": "$2b$10$mN8E3QNf54Xkf1gI5x0/s.xK6EwDiplfPtI8xNpn5sgmX4.iCCNX2"
-    },
-    {
-      "id": 2,
+      "id": 1744026184707,
       "name": "Test User",
       "email": "test@gmail.com",
-      "password": "$2b$10$MRipsxWblwUa53iSdjSY5edl6iDZ4mnhnIv90fJqkzvBGAFqdZseK"
+      "password": "$2b$10$26kYZbcjIsZgj5DyzRtM2O.6A/BNe9/yOhnqS/qYPe6W1aMsiwA8i"
+    },
+    {
+      "id": 1744038418025,
+      "name": "Yashil Singh",
+      "email": "yashil@gmail.com",
+      "password": "$2b$10$.fUW5adytrIiujRJLKBgo.AC6Xc4dlWKvsgCAfmQfeOKP8RFcwyZ2"
     }
   ],
   "jobs": [
@@ -374,6 +374,32 @@
       "salaryBasis": "Monthly",
       "deadlineDate": "2025-05-10T00:00:00Z",
       "createdAt": "2025-04-06T00:00:00Z"
+    }
+  ],
+  "saves": [
+    {
+      "jobId": "1",
+      "userId": 1744026184707
+    },
+    {
+      "jobId": "3",
+      "userId": 1744038418025
+    },
+    {
+      "jobId": "4",
+      "userId": 1744038418025
+    },
+    {
+      "jobId": "2",
+      "userId": 1744038418025
+    },
+    {
+      "jobId": "6",
+      "userId": 1744038418025
+    },
+    {
+      "jobId": "1",
+      "userId": 1744038418025
     }
   ]
 }
