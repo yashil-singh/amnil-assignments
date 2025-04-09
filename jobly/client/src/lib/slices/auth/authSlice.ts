@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthState, User } from "./types";
+import { SocialLink } from "@/services/users/types";
 
 const initialState: AuthState = {
   user: null,
@@ -21,11 +22,29 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.loading = false;
     },
+    updateSocialLink: (state, action: PayloadAction<SocialLink[]>) => {
+      if (state.user) {
+        state.user.socialLinks = action.payload;
+      }
+    },
+    detachSocialLink: (state, action: PayloadAction<string>) => {
+      if (state.user) {
+        state.user.socialLinks = state.user.socialLinks.filter(
+          (link) => link.label !== action.payload,
+        );
+      }
+    },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
   },
 });
 
-export const { setUser, clearUser, setLoading } = authSlice.actions;
+export const {
+  setUser,
+  clearUser,
+  setLoading,
+  updateSocialLink,
+  detachSocialLink,
+} = authSlice.actions;
 export default authSlice.reducer;

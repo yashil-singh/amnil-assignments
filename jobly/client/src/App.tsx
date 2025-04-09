@@ -42,6 +42,7 @@ function App() {
     const authenticate = async () => {
       try {
         const response = await fetchUser();
+
         dispatch(setUser(response.user));
       } catch {
         dispatch(clearUser());

@@ -20,3 +20,13 @@ export const POST = async <T>(endpoint: string = "", body?: T) => {
   const response = await api.post(endpoint, body);
   return response.data;
 };
+
+export const PATCH = async <T>(endpoint: string = "", body?: T) => {
+  const response = await api.patch(endpoint, body);
+  return response.data;
+};
+
+export const DELETE = async (endpoint: string = "") => {
+  const response = await api.delete(endpoint);
+  return response.data;
+};

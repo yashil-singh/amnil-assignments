@@ -8,9 +8,24 @@
     },
     {
       "id": 1744038418025,
-      "name": "Yashil Singh",
+      "name": "Yashil Lal Singh",
       "email": "yashil@gmail.com",
-      "password": "$2b$10$.fUW5adytrIiujRJLKBgo.AC6Xc4dlWKvsgCAfmQfeOKP8RFcwyZ2"
+      "password": "$2b$10$.fUW5adytrIiujRJLKBgo.AC6Xc4dlWKvsgCAfmQfeOKP8RFcwyZ2",
+      "socialLinks": [
+        {
+          "label": "website",
+          "link": "https://yashil-singh.vercel.app/"
+        },
+        {
+          "label": "github",
+          "link": "https://github.com/yashil-singh"
+        },
+        {
+          "label": "linkedin",
+          "link": "https://www.linkedin.com/in/yashil-singh/"
+        }
+      ],
+      "bio": "Full Stack Developer"
     }
   ],
   "jobs": [
@@ -382,11 +397,7 @@
       "userId": 1744026184707
     },
     {
-      "jobId": "3",
-      "userId": 1744038418025
-    },
-    {
-      "jobId": "4",
+      "jobId": "6",
       "userId": 1744038418025
     },
     {
@@ -394,11 +405,11 @@
       "userId": 1744038418025
     },
     {
-      "jobId": "6",
+      "jobId": "1",
       "userId": 1744038418025
     },
     {
-      "jobId": "1",
+      "jobId": "10",
       "userId": 1744038418025
     }
   ]

@@ -11,21 +11,26 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { EditProfileSchema } from "@/lib/schemas/userSchemas";
-import { RootState } from "@/lib/store";
+import { setUser } from "@/lib/slices/auth/authSlice";
+import { AppDispatch, RootState } from "@/lib/store";
+import { handleResponseError } from "@/lib/utils";
+import { editProfile } from "@/services/users/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const EditProfile = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.auth.user);
 
   const form = useForm<z.infer<typeof EditProfileSchema>>({
     defaultValues: {
       name: user?.name,
-      bio: "",
+      bio: user?.bio,
     },
     resolver: zodResolver(EditProfileSchema),
   });
@@ -33,7 +38,17 @@ const EditProfile = () => {
   const handleEditProfile = async (
     values: z.infer<typeof EditProfileSchema>,
   ) => {
-    console.log("🚀 ~ EditProfile.tsx:17 ~ values:", values);
+    try {
+      const response = await editProfile(values);
+
+      dispatch(setUser(response.user));
+
+      form.reset({ name: values.name, bio: values.bio });
+
+      toast.success(response.message);
+    } catch (error) {
+      handleResponseError(error);
+    }
   };
   return (
     <div>
@@ -95,7 +110,7 @@ const EditProfile = () => {
           <Button
             className="w-full"
             size="lg"
-            disabled={form.formState.isSubmitting}
+            disabled={form.formState.isSubmitting || !form.formState.isDirty}
           >
             {form.formState.isSubmitting ? (
               <Loader2 className="animate-spin" />

@@ -40,3 +40,20 @@ export function decodeToken(token) {
     return null;
   }
 }
+
+export function errorResponse(
+  res,
+  message = "Something went wrong. Try again.",
+  statusCode = 500
+) {
+  return res.status(statusCode).json({ message });
+}
+
+export function successResponse(
+  res,
+  data,
+  message = "Request successful.",
+  statusCode = 200
+) {
+  return res.status(statusCode).json({ ...data, message });
+}

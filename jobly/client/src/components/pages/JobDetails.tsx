@@ -30,15 +30,21 @@ const JobDetails = () => {
 
   const onSave = async () => {
     try {
-      const response = await toggleSave(id!);
-
+      // Optimistic UI update
       if (isSaved) {
-        dispatch(removeSavedJob(response.job));
+        dispatch(removeSavedJob(job!));
       } else {
-        dispatch(saveJob(response.job));
+        dispatch(saveJob(job!));
       }
+
+      await toggleSave(id!);
     } catch (error) {
-      console.log("🚀 ~ JobCard.tsx:33 ~ error:", error);
+      // Revert optimistic UI update
+      if (isSaved) {
+        dispatch(saveJob(job!));
+      } else {
+        dispatch(removeSavedJob(job!));
+      }
 
       if (error instanceof AxiosError) {
         toast.error(error.response?.data.message);

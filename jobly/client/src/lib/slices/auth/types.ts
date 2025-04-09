@@ -2,6 +2,8 @@ export type User = {
   id: string;
   name: string;
   email: string;
+  bio: string;
+  socialLinks: { label: string; link: string }[];
 };
 
 export type AuthState = {

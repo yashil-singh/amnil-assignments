@@ -2,6 +2,7 @@ import cookieParser from "cookie-parser";
 import jsonServer from "json-server";
 import authRoutes from "./routes/authRoutes.js";
 import jobRoutes from "./routes/jobRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 import { authenticateToken } from "./middlewares/authMiddleware.js";
 
 const server = jsonServer.create();
@@ -18,9 +19,7 @@ const PORT = process.env.PORT || 3000;
 
 server.use("/api/auth", authRoutes);
 server.use("/api/jobs", jobRoutes);
-
-// server.post("/api/jobs/toggle-save/:id", authenticateToken, toggleJobSave);
-// server.get("/api/jobs/saved", authenticateToken, getUserSavedPosts);
+server.use("/api/users", authenticateToken, userRoutes);
 
 server.use("/api", router);
 
