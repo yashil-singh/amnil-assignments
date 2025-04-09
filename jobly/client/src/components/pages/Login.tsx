@@ -52,7 +52,7 @@ const Login = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleLogin)}
-        className="flex w-full max-w-[350px] flex-col items-start space-y-4 rounded-xl border p-4"
+        className="flex w-full max-w-[350px] flex-col items-start space-y-4 rounded-xl p-4 sm:border"
       >
         <Logo className="mx-auto" />
 

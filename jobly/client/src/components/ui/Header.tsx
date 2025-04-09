@@ -1,4 +1,4 @@
-import { Bell, Settings } from "lucide-react";
+import { Bell, Search, Settings } from "lucide-react";
 import Logo from "./Logo";
 import { Link, NavLink } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
@@ -19,6 +19,15 @@ import { clearUser } from "@/lib/slices/auth/authSlice";
 import { toggleTheme } from "@/lib/slices/theme/themeSlice";
 import { toast } from "sonner";
 import { AxiosError } from "axios";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTrigger,
+} from "./dialog";
+import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 
 const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -82,37 +91,15 @@ const Header = () => {
         </section>
 
         <section className="flex items-center gap-1">
-          <DropdownMenu>
-            <DropdownMenuTrigger className="cursor-pointer outline-none!">
-              <AccountAvatar src="" className="size-10" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="text-lg font-medium">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <Link to="/profile">
-                <DropdownMenuItem className="cursor-pointer">
-                  Profile
-                </DropdownMenuItem>
-              </Link>
-              <Link to="/saved-jobs">
-                <DropdownMenuItem className="cursor-pointer">
-                  Saved Jobs
-                </DropdownMenuItem>
-              </Link>
-              <DropdownMenuItem
-                className="cursor-pointer"
-                onClick={handleToggleTheme}
-              >
-                Switch Theme
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <button className="w-full" onClick={handleLogout}>
-                <DropdownMenuItem className="text-destructive hover:text-destructive! cursor-pointer">
-                  Logout
-                </DropdownMenuItem>
-              </button>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Link to="/search" className="md:hidden">
+            <Button
+              variant="ghost-dark"
+              size="icon"
+              className="text-primary-foreground hover:bg-accent-dark active:bg-accent-dark/80 border-accent-dark border"
+            >
+              <Search className="size-5 text-white" />
+            </Button>
+          </Link>
           <Link to="/settings">
             <Button
               variant="ghost-dark"
@@ -131,6 +118,66 @@ const Header = () => {
               <Bell className="size-5 text-white" />
             </Button>
           </Link>
+          <Dialog>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="cursor-pointer outline-none!">
+                <AccountAvatar src="" className="size-10" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="text-lg font-medium">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <Link to="/profile">
+                  <DropdownMenuItem className="cursor-pointer">
+                    Profile
+                  </DropdownMenuItem>
+                </Link>
+                <DropdownMenuSeparator />
+                <Link to="/saved-jobs">
+                  <DropdownMenuItem className="cursor-pointer">
+                    Saved Jobs
+                  </DropdownMenuItem>
+                </Link>
+                <Link to="/applied-jobs">
+                  <DropdownMenuItem className="cursor-pointer">
+                    Applied Jobs
+                  </DropdownMenuItem>
+                </Link>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={handleToggleTheme}
+                >
+                  Switch Theme
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+
+                <DialogTrigger asChild>
+                  <DropdownMenuItem className="text-destructive hover:text-destructive! cursor-pointer">
+                    Logout
+                  </DropdownMenuItem>
+                </DialogTrigger>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle className="font-bold">
+                  Are you absolutely sure?
+                </DialogTitle>
+                <DialogDescription className="text-muted-foreground text-sm">
+                  You will be logged out of your account.
+                </DialogDescription>
+              </DialogHeader>
+
+              <DialogFooter>
+                <DialogClose asChild>
+                  <Button variant="outline">Cancel</Button>
+                </DialogClose>
+                <Button variant="destructive" onClick={handleLogout}>
+                  Logout
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </section>
       </div>
     </header>

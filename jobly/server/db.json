@@ -4,12 +4,15 @@
       "id": 1744026184707,
       "name": "Test User",
       "email": "test@gmail.com",
-      "password": "$2b$10$26kYZbcjIsZgj5DyzRtM2O.6A/BNe9/yOhnqS/qYPe6W1aMsiwA8i"
+      "bio": "",
+      "password": "$2b$10$26kYZbcjIsZgj5DyzRtM2O.6A/BNe9/yOhnqS/qYPe6W1aMsiwA8i",
+      "socialLinks": []
     },
     {
       "id": 1744038418025,
       "name": "Yashil Lal Singh",
       "email": "yashil@gmail.com",
+      "bio": "Full Stack Developer",
       "password": "$2b$10$.fUW5adytrIiujRJLKBgo.AC6Xc4dlWKvsgCAfmQfeOKP8RFcwyZ2",
       "socialLinks": [
         {
@@ -24,8 +27,7 @@
           "label": "linkedin",
           "link": "https://www.linkedin.com/in/yashil-singh/"
         }
-      ],
-      "bio": "Full Stack Developer"
+      ]
     }
   ],
   "jobs": [
@@ -401,15 +403,36 @@
       "userId": 1744038418025
     },
     {
+      "jobId": "4",
+      "userId": 1744038418025
+    },
+    {
       "jobId": "2",
+      "userId": 1744038418025
+    },
+    {
+      "jobId": "3",
       "userId": 1744038418025
     },
     {
       "jobId": "1",
       "userId": 1744038418025
+    }
+  ],
+  "applications": [
+    {
+      "id": "1744208916910",
+      "jobId": "1",
+      "userId": 1744038418025
     },
     {
-      "jobId": "10",
+      "id": "1744209604828",
+      "jobId": "2",
+      "userId": 1744038418025
+    },
+    {
+      "id": "1744209685340",
+      "jobId": "3",
       "userId": 1744038418025
     }
   ]

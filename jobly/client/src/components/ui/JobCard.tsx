@@ -30,8 +30,6 @@ const JobCard = ({ job }: { job: Job }) => {
         dispatch(saveJob(response.job));
       }
     } catch (error) {
-      console.log("🚀 ~ JobCard.tsx:33 ~ error:", error);
-
       if (error instanceof AxiosError) {
         toast.error(error.response?.data.message);
       } else {
@@ -53,13 +51,15 @@ const JobCard = ({ job }: { job: Job }) => {
           </Button>
         </div>
 
-        <span className="text-sm font-medium">{company}</span>
-
-        <div className="flex items-start justify-between gap-2">
+        <div className="flex items-center justify-between gap-2">
           <div>
+            <span className="text-sm font-medium">{company}</span>
             <h1 className="line-clamp-1 text-lg font-bold">{title}</h1>
           </div>
-          {/* <img src={company.logoUrl} className="h-12" /> */}
+          <img
+            src="https://static.vecteezy.com/system/resources/thumbnails/008/695/917/small_2x/no-image-available-icon-simple-two-colors-template-for-no-image-or-picture-coming-soon-and-placeholder-illustration-isolated-on-white-background-vector.jpg"
+            className="bg-accent size-12 rounded-full"
+          />
         </div>
 
         {tags?.length > 0 && (
@@ -83,7 +83,7 @@ const JobCard = ({ job }: { job: Job }) => {
         </div>
 
         <Link to={`/job/${id}`}>
-          <Button>Details</Button>
+          <Button size="sm">Details</Button>
         </Link>
       </section>
     </div>

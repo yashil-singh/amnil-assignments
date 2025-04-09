@@ -16,11 +16,13 @@ import Logo from "./components/ui/Logo";
 import { setTheme } from "./lib/slices/theme/themeSlice";
 import { fetchUser } from "./services/auth/api";
 import { clearUser, setUser } from "./lib/slices/auth/authSlice";
-import { getSavedJobs } from "./services/job/api";
+import { getAppliedJobs, getSavedJobs } from "./services/job/api";
 import { setSaved } from "./lib/slices/saved/savedSlice";
 import SavedJobs from "./components/pages/SavedJobs";
 import SettingsLayout from "./components/layouts/SettingsLayout";
 import EditProfile from "./components/pages/Settings/EditProfile";
+import { setApplications } from "./lib/slices/application/applicationSlice";
+import AppliedJobs from "./components/pages/AppliedJobs";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -66,6 +68,20 @@ function App() {
     fetchSavedJobs();
   }, [dispatch, user]);
 
+  // useEffect to get applied jobs
+  useEffect(() => {
+    const fetchAppliedJobs = async () => {
+      try {
+        const response = await getAppliedJobs();
+        dispatch(setApplications(response.jobs));
+      } catch (error) {
+        console.log("🚀 ~ App.tsx:55 ~ error:", error);
+      }
+    };
+
+    fetchAppliedJobs();
+  }, [dispatch, user]);
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -105,6 +121,10 @@ function App() {
         {
           path: "/saved-jobs",
           element: <SavedJobs />,
+        },
+        {
+          path: "/applied-jobs",
+          element: <AppliedJobs />,
         },
       ],
     },

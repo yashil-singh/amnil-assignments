@@ -109,26 +109,27 @@ const Profile = () => {
   }, [isSocialModalOpen]);
 
   return (
-    <div className="grid gap-4 px-4 md:grid-cols-3">
-      <section className="md:col-span-2">
-        <div className="bg-accent relative h-40 rounded-xl">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
-            className="bg-accent absolute -bottom-5 left-5 size-20 rounded-full border object-cover"
-          />
-        </div>
-        <div className="mt-8 px-4">
+    <div className="px-4">
+      <div className="bg-accent relative h-40 rounded-xl">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
+          className="bg-accent absolute -bottom-5 left-5 size-20 rounded-full border object-cover"
+        />
+      </div>
+
+      <div className="mt-8 space-y-4 px-4">
+        <section>
           <h1 className="text-xl font-bold">{user?.name}</h1>
-          <span className="text-muted-foreground text-sm">{user?.email}</span>
+          <span className="text-sm font-medium">{user?.email}</span>
+        </section>
 
-          <p className="text-muted-foreground mt-2">{user?.bio}</p>
-        </div>
-      </section>
+        <p className="text-muted-foreground mt-2">{user?.bio}</p>
 
-      <section className="px-4">
-        <div className="w-full space-y-4">
+        <Separator />
+
+        <section className="w-full space-y-4">
           <div className="space-y-2">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-2 sm:justify-start">
               <h1 className="text-lg font-bold">Social Links</h1>
 
               <Dialog
@@ -245,7 +246,7 @@ const Profile = () => {
                 <Mail className="text-accent-foreground" />
               </span>
 
-              <span className="text-muted-foreground text-sm underline">
+              <span className="dark:text-primary-foreground text-primary text-sm font-medium underline">
                 {user?.email}
               </span>
             </div>
@@ -268,7 +269,7 @@ const Profile = () => {
 
                 <Link
                   to={link.link}
-                  className="text-muted-foreground text-sm capitalize underline"
+                  className="dark:text-primary-foreground text-primary text-sm font-medium capitalize underline"
                   target="_blank"
                 >
                   {link.label}
@@ -276,10 +277,10 @@ const Profile = () => {
               </div>
             ))}
           </div>
+        </section>
 
-          <Separator />
-        </div>
-      </section>
+        <Separator />
+      </div>
     </div>
   );
 };

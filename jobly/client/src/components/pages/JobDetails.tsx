@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchJobById, toggleSave } from "../../services/job/api";
+import { applyToJob, fetchJobById, toggleSave } from "../../services/job/api";
 import { useEffect, useState } from "react";
-import { Bookmark, Calendar, Hourglass, MapPin } from "lucide-react";
+import { Bookmark, Calendar, Hourglass, Loader2, MapPin } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/Button";
@@ -10,23 +10,30 @@ import { Job } from "@/lib/types";
 import { AxiosError } from "axios";
 import { toast } from "sonner";
 import Loading from "../ui/Loading";
-import { cn } from "@/lib/utils";
+import { cn, handleResponseError } from "@/lib/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
 import { removeSavedJob, saveJob } from "@/lib/slices/saved/savedSlice";
+import { appendApplication } from "@/lib/slices/application/applicationSlice";
 
 const JobDetails = () => {
   const navigate = useNavigate();
-
-  const saves = useSelector((state: RootState) => state.saved.saves);
   const dispatch = useDispatch<AppDispatch>();
 
   const { id } = useParams<{ id: string }>();
 
+  const saves = useSelector((state: RootState) => state.saved.saves);
   const isSaved = saves.some((save) => save.id === id);
+
+  const applications = useSelector(
+    (state: RootState) => state.application.applications,
+  );
+  const isApplied = applications.some((application) => application.id === id);
 
   const [job, setJob] = useState<Job>();
   const [loading, setLoading] = useState(true);
+
+  const [isApplying, setIsApplying] = useState(false);
 
   const onSave = async () => {
     try {
@@ -51,6 +58,19 @@ const JobDetails = () => {
       } else {
         toast.error("Oops! Something went wrong.");
       }
+    }
+  };
+
+  const onApplyToJob = async () => {
+    try {
+      setIsApplying(true);
+      const response = await applyToJob(id!);
+      dispatch(appendApplication(response.job));
+      toast.success(response.message);
+    } catch (error) {
+      handleResponseError(error);
+    } finally {
+      setIsApplying(false);
     }
   };
 
@@ -174,8 +194,19 @@ const JobDetails = () => {
                 </div>
               </div>
 
-              <Button className="mt-5 w-full" size="lg">
-                Apply Now
+              <Button
+                className="mt-5 w-full"
+                size="lg"
+                onClick={onApplyToJob}
+                disabled={isApplied}
+              >
+                {isApplying ? (
+                  <Loader2 className="animate-spin" />
+                ) : isApplied ? (
+                  "Applied"
+                ) : (
+                  "Apply Now"
+                )}
               </Button>
             </section>
           </div>

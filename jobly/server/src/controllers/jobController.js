@@ -1,4 +1,5 @@
 import { db } from "../index.js";
+import { errorResponse, successResponse } from "../lib/utils.js";
 
 export const getUserSavedJobs = async (req, res) => {
   try {
@@ -57,5 +58,89 @@ export const toggleJobSave = async (req, res) => {
     console.log("🚀 ~ jobController.js:5 ~ error:", error);
 
     res.status(500).json({ message: "Something went wrong! Try again." });
+  }
+};
+
+export const applyToJob = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user?.id;
+
+    const jobs = db.get("jobs");
+    const existingJob = jobs.find({ id }).value();
+
+    if (!existingJob) return errorResponse(res, "Job not found.", 404);
+
+    const applications = db.get("applications");
+    const existingApplication = applications
+      .find({ jobId: id, userId })
+      .value();
+
+    if (existingApplication)
+      return errorResponse(res, "Already applied to this job.", 400);
+
+    const application = {
+      id: Date.now().toString(),
+      jobId: id,
+      userId,
+    };
+
+    applications.push(application).write();
+
+    successResponse(
+      res,
+      { job: existingJob },
+      "Applied to job successfully.",
+      201
+    );
+  } catch (error) {
+    errorResponse(res);
+  }
+};
+
+export const getAppliedJobs = async (req, res) => {
+  try {
+    const userId = req.user?.id;
+
+    const applications = db.get("applications");
+    const jobs = db.get("jobs");
+
+    const userApplications = applications.filter({ userId }).value();
+    const jobIds = userApplications.map((application) => application.jobId);
+
+    const appliedJobs = jobs.filter((job) => jobIds.includes(job.id)).value();
+
+    successResponse(res, { jobs: appliedJobs });
+  } catch (error) {
+    errorResponse(res);
+  }
+};
+
+export const searchJob = async (req, res) => {
+  try {
+    const { q } = req.query;
+
+    if (!q || q.trim() === "")
+      return errorResponse(res, "Query is required.", 400);
+
+    const searchQuery = q.toLowerCase();
+
+    const jobs = db
+      .get("jobs")
+      .value()
+      .filter((job) => {
+        const titleMatch = job.title.toLowerCase().includes(searchQuery);
+        const tagsMatch = job.tags.some((tag) =>
+          tag.toLowerCase().includes(searchQuery)
+        );
+
+        return titleMatch || tagsMatch;
+      });
+
+    successResponse(res, { jobs });
+  } catch (error) {
+    console.log("🚀 ~ jobController.js:142 ~ error:", error);
+
+    errorResponse(res);
   }
 };

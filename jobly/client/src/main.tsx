@@ -3,14 +3,17 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 import { Provider } from "react-redux";
-import { store } from "@/lib/store.ts";
+import { store, persistor } from "@/lib/store.ts";
 import { Toaster } from "sonner";
+import { PersistGate } from "redux-persist/integration/react";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
-      <App />
-      <Toaster richColors theme="dark" closeButton />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+        <Toaster richColors theme="dark" closeButton />
+      </PersistGate>
     </Provider>
   </StrictMode>,
 );

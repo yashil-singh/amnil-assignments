@@ -1,30 +1,28 @@
-import { getSavedJobs } from "@/services/job/api";
-import { AxiosError } from "axios";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
-import JobCard from "../ui/JobCard";
-import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
-import { setSaved } from "@/lib/slices/saved/savedSlice";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Loading from "../ui/Loading";
+import JobCard from "../ui/JobCard";
+import { handleResponseError } from "@/lib/utils";
+import { getAppliedJobs } from "@/services/job/api";
+import { setApplications } from "@/lib/slices/application/applicationSlice";
 
-const SavedJobs = () => {
+const AppliedJobs = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const jobs = useSelector((state: RootState) => state.saved.saves);
+  const applications = useSelector(
+    (state: RootState) => state.application.applications,
+  );
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getJobs = async () => {
       setLoading(true);
       try {
-        const response = await getSavedJobs();
-        dispatch(setSaved(response));
+        const response = await getAppliedJobs();
+        dispatch(setApplications(response.jobs));
       } catch (error) {
-        if (error instanceof AxiosError) {
-          toast.error(error.response?.data.message);
-        } else {
-          toast.error("Oops! Something went wrong.");
-        }
+        handleResponseError(error);
       } finally {
         setLoading(false);
       }
@@ -35,21 +33,21 @@ const SavedJobs = () => {
 
   return (
     <div className="px-4">
-      <h1 className="text-2xl font-black">Saved Jobs</h1>
+      <h1 className="text-2xl font-black">Jobs Applications</h1>
       {loading ? (
         <Loading logoClassName="h-[50px]" />
       ) : (
-        jobs &&
-        (jobs.length > 0 ? (
+        applications &&
+        (applications.length > 0 ? (
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {jobs.map((job) => (
+            {applications.map((job) => (
               <JobCard job={job} key={job.id} />
             ))}
           </div>
         ) : (
           <div className="flex h-[40vh] items-center justify-center">
             <span className="text-center font-medium">
-              You have no saved jobs yet.
+              You have not applied to any jobs yet.
             </span>
           </div>
         ))
@@ -58,4 +56,4 @@ const SavedJobs = () => {
   );
 };
 
-export default SavedJobs;
+export default AppliedJobs;

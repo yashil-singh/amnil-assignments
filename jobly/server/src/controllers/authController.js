@@ -24,13 +24,22 @@ export const signup = async (req, res) => {
 
     const hashedPassword = await hashPassword(password);
 
-    const newUser = { id: Date.now(), name, email, password: hashedPassword };
+    const newUser = {
+      id: Date.now(),
+      name,
+      email,
+      password: hashedPassword,
+      bio: "",
+      socialLinks: [],
+    };
     users.push(newUser).write();
 
     const token = await generateToken({
       id: newUser.id,
       name: newUser.name,
       email: newUser.email,
+      bio: newUser.bio,
+      socialLinks: newUser.socialLinks,
     });
 
     res.setHeader(
@@ -46,7 +55,13 @@ export const signup = async (req, res) => {
 
     res.status(201).json({
       message: "Account created.",
-      user: { id: newUser.id, name: newUser.name, email: newUser.email },
+      user: {
+        id: newUser.id,
+        name: newUser.name,
+        email: newUser.email,
+        bio: newUser.bio,
+        socialLinks: newUser.socialLinks,
+      },
     });
   } catch (error) {
     console.log("🚀 ~ authController.js:22 ~ error:", error);
@@ -82,6 +97,8 @@ export const login = async (req, res, router) => {
       id: existingUser.id,
       name: existingUser.name,
       email: existingUser.email,
+      bio: existingUser.bio,
+      socialLinks: existingUser.socialLinks,
     });
 
     res.setHeader(
@@ -101,6 +118,8 @@ export const login = async (req, res, router) => {
         id: existingUser.id,
         name: existingUser.name,
         email: existingUser.email,
+        bio: existingUser.bio,
+        socialLinks: existingUser.socialLinks,
       },
     });
   } catch (error) {
