@@ -15,7 +15,8 @@ Jobly is a job portal web application built with a modern stack, designed to hel
   - Vite
   - React
   - TypeScript
-  - Redux
+  - Redux ToolKit
+  - Redux Persist
   - Tailwind CSS
 - **Backend**:
   - JSON Server
