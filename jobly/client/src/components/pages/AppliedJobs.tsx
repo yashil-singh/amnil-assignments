@@ -5,12 +5,12 @@ import Loading from "../ui/Loading";
 import JobCard from "../ui/JobCard";
 import { handleResponseError } from "@/lib/utils";
 import { getAppliedJobs } from "@/services/job/api";
-import { setApplications } from "@/lib/slices/application/applicationSlice";
+import { setApplications } from "@/lib/slices/job/jobSlice";
 
 const AppliedJobs = () => {
   const dispatch = useDispatch<AppDispatch>();
   const applications = useSelector(
-    (state: RootState) => state.application.applications,
+    (state: RootState) => state.userJob.applications,
   );
 
   const [loading, setLoading] = useState(false);

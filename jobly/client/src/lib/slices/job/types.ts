@@ -12,3 +12,8 @@ export type Job = {
   deadlineDate: string;
   createdAt: string;
 };
+
+export type UserJobState = {
+  saves: Job[];
+  applications: Job[];
+};

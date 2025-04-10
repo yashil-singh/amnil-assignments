@@ -1,15 +1,7 @@
 import { AppDispatch, RootState } from "@/lib/store";
 import { useDispatch, useSelector } from "react-redux";
 import { Separator } from "../ui/separator";
-import {
-  Check,
-  Github,
-  Globe,
-  Linkedin,
-  Mail,
-  Pen,
-  Trash2,
-} from "lucide-react";
+import { Check, Github, Globe, Linkedin, Pen, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/Button";
 import {
@@ -241,15 +233,6 @@ const Profile = () => {
               </Dialog>
             </div>
 
-            <div className="flex items-center gap-2 break-all">
-              <span className="bg-accent flex rounded-lg p-2">
-                <Mail className="text-accent-foreground" />
-              </span>
-
-              <span className="dark:text-primary-foreground text-primary text-sm font-medium underline">
-                {user?.email}
-              </span>
-            </div>
             {user?.socialLinks.map((link) => (
               <div
                 className="flex items-center gap-2 break-all"

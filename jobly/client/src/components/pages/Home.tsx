@@ -3,8 +3,8 @@ import JobCard from "../ui/JobCard";
 import { AxiosError } from "axios";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import { Job } from "@/lib/types";
 import Loading from "../ui/Loading";
+import { Job } from "@/lib/slices/job/types";
 
 const Home = () => {
   const [jobs, setJobs] = useState<Job[]>([]);

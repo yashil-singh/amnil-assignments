@@ -5,12 +5,12 @@ import { toast } from "sonner";
 import JobCard from "../ui/JobCard";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
-import { setSaved } from "@/lib/slices/saved/savedSlice";
 import Loading from "../ui/Loading";
+import { setSaved } from "@/lib/slices/job/jobSlice";
 
 const SavedJobs = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const jobs = useSelector((state: RootState) => state.saved.saves);
+  const jobs = useSelector((state: RootState) => state.userJob.saves);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

@@ -3,7 +3,6 @@ import { Input } from "../ui/input";
 import { useEffect, useState } from "react";
 import { handleResponseError } from "@/lib/utils";
 import { searchJob } from "@/services/job/api";
-import { Job } from "@/lib/types";
 import Loading from "../ui/Loading";
 import JobCard from "../ui/JobCard";
 import searching from "@/assets/images/searching.svg";
@@ -15,6 +14,7 @@ import {
   removeSearch,
 } from "@/lib/slices/search/searchSlice";
 import { Button } from "../ui/Button";
+import { Job } from "@/lib/slices/job/types";
 
 const Search = () => {
   const dispatch = useDispatch<AppDispatch>();

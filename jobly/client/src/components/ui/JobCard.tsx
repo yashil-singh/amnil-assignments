@@ -6,18 +6,18 @@ import { Button } from "./Button";
 import { Badge } from "./badge";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
-import { removeSavedJob, saveJob } from "@/lib/slices/saved/savedSlice";
 import { toggleSave } from "@/services/job/api";
 import { toast } from "sonner";
 import { AxiosError } from "axios";
 import { cn } from "@/lib/utils";
+import { removeSavedJob, saveJob } from "@/lib/slices/job/jobSlice";
 
 const JobCard = ({ job }: { job: Job }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { id, title, createdAt, company, tags, salary, location } = job;
 
-  const saves = useSelector((state: RootState) => state.saved.saves);
+  const saves = useSelector((state: RootState) => state.userJob.saves);
   const isSaved = saves.some((job) => job.id === id);
 
   const onSave = async () => {

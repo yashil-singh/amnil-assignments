@@ -17,19 +17,20 @@ import { setTheme } from "./lib/slices/theme/themeSlice";
 import { fetchUser } from "./services/auth/api";
 import { clearUser, setUser } from "./lib/slices/auth/authSlice";
 import { getAppliedJobs, getSavedJobs } from "./services/job/api";
-import { setSaved } from "./lib/slices/saved/savedSlice";
 import SavedJobs from "./components/pages/SavedJobs";
 import SettingsLayout from "./components/layouts/SettingsLayout";
 import EditProfile from "./components/pages/Settings/EditProfile";
-import { setApplications } from "./lib/slices/application/applicationSlice";
 import AppliedJobs from "./components/pages/AppliedJobs";
+import { setApplications, setSaved } from "./lib/slices/job/jobSlice";
+import { Toaster } from "sonner";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
 
   const { user, loading } = useSelector((state: RootState) => state.auth);
+  const { theme } = useSelector((state: RootState) => state.theme);
 
-  // useEffect for getting stored theme
+  // useEffect to authenticate user and set theme
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
@@ -37,10 +38,7 @@ function App() {
     } else {
       dispatch(setTheme("dark"));
     }
-  }, [dispatch]);
 
-  // useEffect to authenticate user
-  useEffect(() => {
     const authenticate = async () => {
       try {
         const response = await fetchUser();
@@ -54,7 +52,7 @@ function App() {
     authenticate();
   }, [dispatch]);
 
-  // useEffect to get saved jobs
+  // useEffect to get user data
   useEffect(() => {
     const fetchSavedJobs = async () => {
       try {
@@ -65,11 +63,6 @@ function App() {
       }
     };
 
-    fetchSavedJobs();
-  }, [dispatch, user]);
-
-  // useEffect to get applied jobs
-  useEffect(() => {
     const fetchAppliedJobs = async () => {
       try {
         const response = await getAppliedJobs();
@@ -79,6 +72,7 @@ function App() {
       }
     };
 
+    fetchSavedJobs();
     fetchAppliedJobs();
   }, [dispatch, user]);
 
@@ -154,6 +148,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
+      <Toaster theme={theme === "dark" ? "dark" : "light"} richColors />
     </>
   );
 }

@@ -1,8 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import authReducer from "@/lib/slices/auth/authSlice";
 import themeReducer from "@/lib/slices/theme/themeSlice";
-import savedReducer from "@/lib/slices/saved/savedSlice";
-import applicationReducer from "@/lib/slices/application/applicationSlice";
+import userJobReducer from "@/lib/slices/job/jobSlice";
 import searchReducer from "@/lib/slices/search/searchSlice";
 import storage from "redux-persist/lib/storage";
 import {
@@ -25,8 +24,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   theme: themeReducer,
-  saved: savedReducer,
-  application: applicationReducer,
+  userJob: userJobReducer,
   search: searchReducer,
 });
 

@@ -6,15 +6,18 @@ import { Separator } from "../ui/separator";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/Button";
 import { formatDate } from "date-fns";
-import { Job } from "@/lib/types";
 import { AxiosError } from "axios";
 import { toast } from "sonner";
 import Loading from "../ui/Loading";
 import { cn, handleResponseError } from "@/lib/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
-import { removeSavedJob, saveJob } from "@/lib/slices/saved/savedSlice";
-import { appendApplication } from "@/lib/slices/application/applicationSlice";
+import {
+  addApplication,
+  removeSavedJob,
+  saveJob,
+} from "@/lib/slices/job/jobSlice";
+import { Job } from "@/lib/slices/job/types";
 
 const JobDetails = () => {
   const navigate = useNavigate();
@@ -22,11 +25,11 @@ const JobDetails = () => {
 
   const { id } = useParams<{ id: string }>();
 
-  const saves = useSelector((state: RootState) => state.saved.saves);
+  const saves = useSelector((state: RootState) => state.userJob.saves);
   const isSaved = saves.some((save) => save.id === id);
 
   const applications = useSelector(
-    (state: RootState) => state.application.applications,
+    (state: RootState) => state.userJob.applications,
   );
   const isApplied = applications.some((application) => application.id === id);
 
@@ -65,7 +68,7 @@ const JobDetails = () => {
     try {
       setIsApplying(true);
       const response = await applyToJob(id!);
-      dispatch(appendApplication(response.job));
+      dispatch(addApplication(response.job));
       toast.success(response.message);
     } catch (error) {
       handleResponseError(error);
